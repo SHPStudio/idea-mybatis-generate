@@ -149,9 +149,6 @@ public class MainFrame extends JFrame{
         pane1.add(cancelConnectBtn);
         this.setVisible(true);
         pane2.setVisible(false);
-        jcombo.addActionListener(actionEvent->{
-            System.out.println("select:"+RuntimeEnv.pp.getTableName());
-        });
         pane2.add(jcombo);
 
         JPanel innerJp0 = new JPanel();
