@@ -41,12 +41,13 @@ public class MainFrame extends JFrame{
     JCheckBox packgeFiler=new JCheckBox("生成包文件夹");
 
     {
-        modelField.setColumns(10);
-        modelOut.setColumns(10);
-        mapperField.setColumns(10);
-        mapperOut.setColumns(10);
-        xmlField.setColumns(10);
-        xmlOut.setColumns(10);
+        modelField.setPreferredSize(new Dimension(150,26));
+        modelOut.setPreferredSize(new Dimension(150,26));
+        mapperField.setPreferredSize(new Dimension(150,26));
+        mapperOut.setPreferredSize(new Dimension(150,26));
+        xmlField.setPreferredSize(new Dimension(150,26));
+        xmlOut.setPreferredSize(new Dimension(150,26));
+        jcombo.setPreferredSize(new Dimension(150,26));
     }
 
 
@@ -64,11 +65,11 @@ public class MainFrame extends JFrame{
     public MainFrame (){
         this.setTitle("mybatis生成器");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(100, 100, 950, 400);
+        this.setBounds(100, 100, 950, 250);
         JPanel contentPane=new JPanel();
         contentPane.setBorder(new EmptyBorder(5,5,5,5));
         this.setContentPane(contentPane);
-        contentPane.setLayout(new GridLayout(3,6,5,5));
+        contentPane.setLayout(new FlowLayout(FlowLayout.LEFT));
         JPanel pane1=new JPanel();
         contentPane.add(pane1);
         JPanel pane2=new JPanel();
