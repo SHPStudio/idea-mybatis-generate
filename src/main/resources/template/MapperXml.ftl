@@ -67,7 +67,7 @@
             </if>
             </#list>
         </trim>
-    </select>
+    </select>k
 
     <#list attrs as attr>
         <#if attr.isKey == 1>
@@ -77,6 +77,16 @@
         from ${tableName}
         where
         ${attr.columnName} = ${"#\{"}${attr.columnName}}
+    </select>
+    <select id="getBy${attr.columnName?cap_first}List" resultType="${packageModel}.${className}">
+        select
+        *
+        from ${tableName}
+        where
+        ${attr.columnName} in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            ${"#\{"}item}
+        </foreach>
     </select>
         </#if>
     </#list>
