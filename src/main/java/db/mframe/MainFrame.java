@@ -48,6 +48,8 @@ public class MainFrame extends JFrame{
         xmlField.setPreferredSize(new Dimension(150,26));
         xmlOut.setPreferredSize(new Dimension(150,26));
         jcombo.setPreferredSize(new Dimension(150,26));
+        workOut.setPreferredSize(new Dimension(150,26));
+
     }
 
 
@@ -158,6 +160,7 @@ public class MainFrame extends JFrame{
         workOut.setText(RuntimeEnv.pp.getWorkSpace());
         innerJp0.add(workOut);
         JButton workBtn = new JButton("选择工作目录");
+        workOut.setPreferredSize(new Dimension(150,26));
         workBtn.addActionListener(actionEvent->{
             JFileChooser jfc = new JFileChooser();
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
