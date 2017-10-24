@@ -26,6 +26,7 @@ public class TypeSwitch {
             case "TIMESTAMP":return "java.time.LocalDateTime";
             case "MEDIUMTEXT":return "String";
             case "LONGTEXT":return "String";
+            case "DATETIME":return "java.time.LocalDate";
             default:
                 throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.TypeSwitch");
         }

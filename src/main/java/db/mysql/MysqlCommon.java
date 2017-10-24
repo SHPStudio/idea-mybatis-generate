@@ -21,6 +21,7 @@ public class MysqlCommon {
     private String schema;
     private String user;
     private String password;
+    private List<String> tables;
 
 
     public String getSchema() {
@@ -91,12 +92,17 @@ public class MysqlCommon {
 
     public List<String> getTableList (){
         try {
-            List<String> tables = new ArrayList<>();
-            ResultSet rs= databaseMetaData.getTables(null,schema,null,new String[]{"TABLE"});
-            while (rs.next()){
-                tables.add(rs.getString("TABLE_NAME"));
+            if (tables==null) {
+                List<String> tables = new ArrayList<>();
+                ResultSet rs = databaseMetaData.getTables(null, schema, null, new String[]{"TABLE"});
+                while (rs.next()) {
+                    tables.add(rs.getString("TABLE_NAME"));
+                }
+                return tables;
             }
-            return tables;
+            else {
+                return tables;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

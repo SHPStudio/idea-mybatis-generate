@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * db.frame
@@ -20,7 +22,7 @@ public class MainFrame extends JFrame{
 
     JButton cancelConnectBtn = new JButton("取消连接");
 
-    JComboBox jcombo = new JComboBox();
+    JTextField search = new JTextField();
 
     JTextField workOut=new JTextField();
 
@@ -36,18 +38,25 @@ public class MainFrame extends JFrame{
 
     JTextField xmlOut=new JTextField();
 
+    DefaultListModel<String> defaultListModel= new DefaultListModel();
+
+    JList<String> jList = new JList<>(defaultListModel);
+
+    JScrollPane  jScrollPane = new JScrollPane (jList);
+
     JCheckBox overwrite=new JCheckBox("全覆盖生成");
 
     JCheckBox packgeFiler=new JCheckBox("生成包文件夹");
 
     {
+        jScrollPane.setPreferredSize(new Dimension(150,252));
         modelField.setPreferredSize(new Dimension(150,26));
+        search.setPreferredSize(new Dimension(150,26));
         modelOut.setPreferredSize(new Dimension(150,26));
         mapperField.setPreferredSize(new Dimension(150,26));
         mapperOut.setPreferredSize(new Dimension(150,26));
         xmlField.setPreferredSize(new Dimension(150,26));
         xmlOut.setPreferredSize(new Dimension(150,26));
-        jcombo.setPreferredSize(new Dimension(150,26));
         workOut.setPreferredSize(new Dimension(150,26));
 
     }
@@ -67,7 +76,7 @@ public class MainFrame extends JFrame{
     public MainFrame (){
         this.setTitle("mybatis生成器");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(100, 100, 950, 250);
+        this.setBounds(100, 100, 970, 450);
         JPanel contentPane=new JPanel();
         contentPane.setBorder(new EmptyBorder(5,5,5,5));
         this.setContentPane(contentPane);
@@ -123,17 +132,17 @@ public class MainFrame extends JFrame{
             pane2.setVisible(true);
             pane3.setVisible(true);
             System.out.println("connect");
-            jcombo.removeAllItems();
-            final String[] selected = {null};
+            final Integer[] selected = {null};
+            int index = 0;
             for (String table :RuntimeEnv.mc.getTableList()){
-                jcombo.addItem(table);
+                defaultListModel.addElement(table);
                 if (table.equals(RuntimeEnv.pp.getTableName())){
-                    selected[0] =table;
+                    selected[0] =index;
+
                 }
+                index++;
             }
-            if (selected[0]!=null){
-                jcombo.setSelectedItem(selected[0]);
-            }
+            jList.setSelectedIndex(selected[0]);
         });
         pane1.add(connectBtn);
 
@@ -152,7 +161,33 @@ public class MainFrame extends JFrame{
         pane1.add(cancelConnectBtn);
         this.setVisible(true);
         pane2.setVisible(false);
-        pane2.add(jcombo);
+
+        JPanel innerJp = new JPanel();
+        innerJp.setLayout(new FlowLayout(0));
+        search.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String tableName=search.getText();
+                defaultListModel.removeAllElements();
+                RuntimeEnv.mc.getTableList().stream().filter(m->m.contains(tableName))
+                    .forEach(m->defaultListModel.addElement(m));
+                jList.setSelectedIndex(0);
+            }
+        });
+        search.setText(RuntimeEnv.pp.getTableName());
+        innerJp.add(search);
+        innerJp.add(jScrollPane);
+        pane2.add(innerJp);
 
         JPanel innerJp0 = new JPanel();
         innerJp0.setLayout(new GridLayout(3,1,5,5));
@@ -250,7 +285,7 @@ public class MainFrame extends JFrame{
             boolean pack=packgeFiler.getSelectedObjects()!=null;
             RuntimeEnv.pp.setProducePackFile(pack);
             RuntimeEnv.pp.setWorkSpace(workOut.getText());
-            RuntimeEnv.pp.setTableName((String) jcombo.getSelectedItem());
+            RuntimeEnv.pp.setTableName(jList.getSelectedValue());
             RuntimeEnv.pp.setClassName(modelField.getText());
             RuntimeEnv.pp.setPackageModel(modelOut.getText());
             RuntimeEnv.pp.setModelOutPath(workOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageModel().replaceAll("\\.","/"):""));
