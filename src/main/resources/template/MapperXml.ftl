@@ -67,7 +67,7 @@
             </if>
             </#list>
         </trim>
-    </select>k
+    </select>
 
     <#list attrs as attr>
         <#if attr.isKey == 1>
