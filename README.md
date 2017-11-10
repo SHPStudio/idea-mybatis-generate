@@ -10,4 +10,4 @@ db目录下的main文件运行即可
 
 #程序界面
 
-![image](https://gitee.com/rohou/mybatis-generator/主页.png)
+![image](https://gitee.com/rohou/mybatis-generator/blob/master/%E4%B8%BB%E9%A1%B5.png)
