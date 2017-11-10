@@ -22,7 +22,12 @@ public class MainFrame extends JFrame{
 
     JTextField search = new JTextField();
 
-    JTextField workOut=new JTextField();
+    JTextField modelWorkOut=new JTextField();
+
+    JTextField mapperWorkOut=new JTextField();
+
+    JTextField xmlWorkOut=new JTextField();
+
 
     JTextField modelField=new JTextField();
 
@@ -55,7 +60,9 @@ public class MainFrame extends JFrame{
         mapperOut.setPreferredSize(new Dimension(150,26));
         xmlField.setPreferredSize(new Dimension(150,26));
         xmlOut.setPreferredSize(new Dimension(150,26));
-        workOut.setPreferredSize(new Dimension(150,26));
+        modelWorkOut.setPreferredSize(new Dimension(150,26));
+        mapperWorkOut.setPreferredSize(new Dimension(150,26));
+        xmlWorkOut.setPreferredSize(new Dimension(150,26));
 
     }
 
@@ -187,44 +194,71 @@ public class MainFrame extends JFrame{
         innerJp.add(jScrollPane);
         pane2.add(innerJp);
 
-        JPanel innerJp0 = new JPanel();
-        innerJp0.setLayout(new GridLayout(3,1,5,5));
-        pane2.add(innerJp0);
-        workOut.setText(RuntimeEnv.pp.getWorkSpace());
-        innerJp0.add(workOut);
-        JButton workBtn = new JButton("选择工作目录");
-        workOut.setPreferredSize(new Dimension(150,26));
-        workBtn.addActionListener(actionEvent->{
+
+
+        JPanel innerJp1 = new JPanel();
+        innerJp1.setLayout(new GridLayout(4,1,5,5));
+        pane2.add(innerJp1);
+        modelWorkOut.setText(RuntimeEnv.pp.getModelWorkSpace());
+        innerJp1.add(modelWorkOut);
+        JButton modelWorkBtn = new JButton("选择model工作目录");
+        modelWorkBtn.addActionListener(actionEvent->{
             JFileChooser jfc = new JFileChooser();
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if(jfc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION ){
                 //解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
-                RuntimeEnv.pp.setWorkSpace(jfc.getSelectedFile().getAbsolutePath().replaceAll("\\\\","/"));
-                workOut.setText(RuntimeEnv.pp.getWorkSpace());
+                RuntimeEnv.pp.setModelWorkSpace(jfc.getSelectedFile().getAbsolutePath().replaceAll("\\\\","/"));
+                modelWorkOut.setText(RuntimeEnv.pp.getModelWorkSpace());
             }
         });
-        innerJp0.add(workBtn);
+        innerJp1.add(modelWorkBtn);
 
 
-        JPanel innerJp1 = new JPanel();
-        innerJp1.setLayout(new GridLayout(3,1,5,5));
-        pane2.add(innerJp1);
         modelField.setText(RuntimeEnv.pp.getClassName());
         modelOut.setText(RuntimeEnv.pp.getPackageModel());
         innerJp1.add(modelField);
         innerJp1.add(modelOut);
 
         JPanel innerJp2 = new JPanel();
-        innerJp2.setLayout(new GridLayout(3,1,5,5));
+        innerJp2.setLayout(new GridLayout(4,1,5,5));
         pane2.add(innerJp2);
+        mapperWorkOut.setText(RuntimeEnv.pp.getMapperWorkSpace());
+        innerJp2.add(mapperWorkOut);
+        JButton mapperWorkBtn = new JButton("选择mapper工作目录");
+        mapperWorkBtn.addActionListener(actionEvent->{
+            JFileChooser jfc = new JFileChooser();
+            jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            if(jfc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION ){
+                //解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
+                RuntimeEnv.pp.setMapperWorkSpace(jfc.getSelectedFile().getAbsolutePath().replaceAll("\\\\","/"));
+                mapperWorkOut.setText(RuntimeEnv.pp.getMapperWorkSpace());
+            }
+        });
+        innerJp2.add(mapperWorkBtn);
+
         mapperField.setText(RuntimeEnv.pp.getMapperName());
         mapperOut.setText(RuntimeEnv.pp.getPackageMapper());
         innerJp2.add(mapperField);
         innerJp2.add(mapperOut);
 
         JPanel innerJp3 = new JPanel();
-        innerJp3.setLayout(new GridLayout(3,1,5,5));
+        innerJp3.setLayout(new GridLayout(4,1,5,5));
         pane2.add(innerJp3);
+
+        xmlWorkOut.setText(RuntimeEnv.pp.getXmlWorkSpace());
+        innerJp3.add(xmlWorkOut);
+        JButton xmlWorkBtn = new JButton("选择xml工作目录");
+        xmlWorkBtn.addActionListener(actionEvent->{
+            JFileChooser jfc = new JFileChooser();
+            jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            if(jfc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION ){
+                //解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
+                RuntimeEnv.pp.setXmlWorkSpace(jfc.getSelectedFile().getAbsolutePath().replaceAll("\\\\","/"));
+                xmlWorkOut.setText(RuntimeEnv.pp.getXmlWorkSpace());
+            }
+        });
+        innerJp3.add(xmlWorkBtn);
+
         xmlField.setText(RuntimeEnv.pp.getMapperXmlName());
         xmlOut.setText(RuntimeEnv.pp.getPackageXmlMapper());
         innerJp3.add(xmlField);
@@ -282,17 +316,19 @@ public class MainFrame extends JFrame{
         generate.addActionListener(actionEvent->{
             boolean pack=packgeFiler.getSelectedObjects()!=null;
             RuntimeEnv.pp.setProducePackFile(pack);
-            RuntimeEnv.pp.setWorkSpace(workOut.getText());
+            RuntimeEnv.pp.setModelWorkSpace(modelWorkOut.getText());
+            RuntimeEnv.pp.setMapperWorkSpace(mapperWorkOut.getText());
+            RuntimeEnv.pp.setXmlWorkSpace(xmlWorkOut.getText());
             RuntimeEnv.pp.setTableName(jList.getSelectedValue());
             RuntimeEnv.pp.setClassName(modelField.getText());
             RuntimeEnv.pp.setPackageModel(modelOut.getText());
-            RuntimeEnv.pp.setModelOutPath(workOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageModel().replaceAll("\\.","/"):""));
+            RuntimeEnv.pp.setModelOutPath(modelWorkOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageModel().replaceAll("\\.","/"):""));
             RuntimeEnv.pp.setMapperName(mapperField.getText());
             RuntimeEnv.pp.setPackageMapper(mapperOut.getText());
-            RuntimeEnv.pp.setMapperOutPath(workOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageMapper().replaceAll("\\.","/"):""));
+            RuntimeEnv.pp.setMapperOutPath(mapperWorkOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageMapper().replaceAll("\\.","/"):""));
             RuntimeEnv.pp.setMapperXmlName(xmlField.getText());
             RuntimeEnv.pp.setPackageXmlMapper(xmlOut.getText());
-            RuntimeEnv.pp.setMapperXmlOutPath(workOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageXmlMapper().replaceAll("\\.","/"):""));
+            RuntimeEnv.pp.setMapperXmlOutPath(xmlWorkOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageXmlMapper().replaceAll("\\.","/"):""));
             RuntimeEnv.pp.setOverwrite(overwrite.getSelectedObjects()!=null);
             Main.generate();
             RuntimeEnv.storage();

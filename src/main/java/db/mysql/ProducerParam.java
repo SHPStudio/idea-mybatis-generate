@@ -47,7 +47,11 @@ public class ProducerParam {
     @JSONField(ordinal = 15)
     private boolean overwrite = false;
     @JSONField(ordinal = 16)
-    private String workSpace = "workspace";
+    private String modelWorkSpace = "modelworkspace";
+    @JSONField(ordinal = 16)
+    private String mapperWorkSpace = "mapperworkspace";
+    @JSONField(ordinal = 16)
+    private String xmlWorkSpace = "xmlworkspace";
     @JSONField(ordinal = 17)
     private boolean producePackFile = false;
 
@@ -179,12 +183,28 @@ public class ProducerParam {
         this.packageXmlMapper = packageXmlMapper;
     }
 
-    public String getWorkSpace() {
-        return workSpace;
+    public String getModelWorkSpace() {
+        return modelWorkSpace;
     }
 
-    public void setWorkSpace(String workSpace) {
-        this.workSpace = workSpace;
+    public void setModelWorkSpace(String modelWorkSpace) {
+        this.modelWorkSpace = modelWorkSpace;
+    }
+
+    public String getMapperWorkSpace() {
+        return mapperWorkSpace;
+    }
+
+    public void setMapperWorkSpace(String mapperWorkSpace) {
+        this.mapperWorkSpace = mapperWorkSpace;
+    }
+
+    public String getXmlWorkSpace() {
+        return xmlWorkSpace;
+    }
+
+    public void setXmlWorkSpace(String xmlWorkSpace) {
+        this.xmlWorkSpace = xmlWorkSpace;
     }
 
     public boolean isProducePackFile() {
@@ -214,7 +234,9 @@ public class ProducerParam {
                 ", mapperXmlName='" + mapperXmlName + '\'' +
                 ", author='" + author + '\'' +
                 ", overwrite=" + overwrite +
-                ", workSpace='" + workSpace + '\'' +
+                ", modelWorkSpace='" + modelWorkSpace + '\'' +
+                ", mapperWorkSpace='" + mapperWorkSpace + '\'' +
+                ", xmlWorkSpace='" + xmlWorkSpace + '\'' +
                 ", producePackFile=" + producePackFile +
                 '}';
     }
