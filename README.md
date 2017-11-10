@@ -1,4 +1,4 @@
-#mybatis-generate
+##mybatis-generate
 
 1.  自定义生成mybatis ，可以自己控制模板
 
@@ -11,7 +11,7 @@
 5.  自由控制sql的返回的属性集，通过fetchXXX，或者excludeXXX控制  通过Builder构建查询
 
 
-#程序界面
+##程序界面
 
 ## 1.   程序主页
 ![主页](https://gitee.com/uploads/images/2017/1110/130118_532538fc_549070.png "主页.png")
