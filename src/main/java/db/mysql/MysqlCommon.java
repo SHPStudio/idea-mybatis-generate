@@ -128,6 +128,7 @@ public class MysqlCommon {
                 mySqlData.setTypeId(rs.getInt("DATA_TYPE"));
                 mySqlData.setTypeName(rs.getString("TYPE_NAME"));
                 mySqlData.setJavaTypeName(TypeSwitch.transfer(mySqlData.getTypeName()));
+                mySqlData.setIsTime(TypeSwitch.isTime(mySqlData.getTypeName()));
                 mySqlData.setRemarks(rs.getString("REMARKS"));
                 mySqlData.setNullAble(rs.getInt("NULLABLE"));
                 mySqlData.setColumnDef(rs.getString("COLUMN_DEF"));

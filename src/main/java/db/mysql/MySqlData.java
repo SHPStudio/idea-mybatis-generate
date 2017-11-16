@@ -45,6 +45,15 @@ public class MySqlData {
      */
     private String columnDef;
 
+    private String isTime;
+
+    public String getIsTime() {
+        return isTime;
+    }
+
+    public void setIsTime(String isTime) {
+        this.isTime = isTime;
+    }
 
     public Integer getNullAble() {
         return nullAble;
@@ -122,7 +131,7 @@ public class MySqlData {
     public String toString() {
         return "MySqlData{" +
                 "isKey=" + isKey +
-                ", isAuto=" + isAuto +
+                ", isAuto='" + isAuto + '\'' +
                 ", columnName='" + columnName + '\'' +
                 ", typeId=" + typeId +
                 ", typeName='" + typeName + '\'' +
@@ -130,6 +139,7 @@ public class MySqlData {
                 ", remarks='" + remarks + '\'' +
                 ", nullAble=" + nullAble +
                 ", columnDef='" + columnDef + '\'' +
+                ", isTime='" + isTime + '\'' +
                 '}';
     }
 }

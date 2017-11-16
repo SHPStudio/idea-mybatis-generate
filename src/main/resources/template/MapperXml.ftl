@@ -6,36 +6,30 @@
     <!--生成代码开始 don't delete-->
 
 
-    <insert id="insert">
+    <insert id="insert${className}">
         INSERT INTO ${tableName}
         (
-       <#list attrs as attr>
-            <#if attr.isAuto == "NO">
-                <#if attr_has_next>
-        ${attr.columnName},
-                </#if>
-                <#if !attr_has_next>
-        ${attr.columnName}
-                </#if>
-            </#if>
-       </#list>
+        <trim suffixOverrides=",">
+            <#list attrs as attr>
+            <if test="${attr.columnName}!=null">
+            ${attr.columnName},
+            </if>
+            </#list>
+        </trim>
         )
         VALUES
         (
+        <trim suffixOverrides=",">
         <#list attrs as attr>
-            <#if attr.isAuto == "NO">
-                <#if attr_has_next>
+        <if test="${attr.columnName}!=null">
         ${"#\{"}${attr.columnName}},
-                </#if>
-                <#if !attr_has_next>
-        ${"#\{"}${attr.columnName}}
-                </#if>
-            </#if>
+        </if>
         </#list>
+        </trim>
         );
     </insert>
 
-    <update id="update">
+    <update id="update${className}">
     UPDATE ${tableName}
     SET
     <trim suffixOverrides=",">
@@ -56,7 +50,7 @@
     </#list>
     </trim>
     </update>
-    <select id="query" resultType="${packageModel}.${className}">
+    <select id="query${className}" resultType="${packageModel}.${className}">
         select
         <include refid="baseResult"></include>
         from  ${tableName}
@@ -65,31 +59,20 @@
             <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
             ${attr.columnName} = ${"#\{"}${attr.columnName}} and
             </if>
+            <if test="${attr.columnName}List != null">
+            ${attr.columnName} in
+            <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
+                ${"#\{"}item}
+            </foreach> and
+            </if>
+        <#if attr.isTime = "yes">
+            <if test="${attr.columnName}St !=null and ${attr.columnName}Ed!=null">
+                (${attr.columnName} >= ${"#\{"}${attr.columnName}St} and ${attr.columnName} &lt; ${"#\{"}${attr.columnName}Ed})
+            </if>
+        </#if>
             </#list>
         </trim>
     </select>
-
-    <#list attrs as attr>
-        <#if attr.isKey == 1>
-    <select id="getBy${attr.columnName?cap_first}" resultType="${packageModel}.${className}">
-        select
-            *
-        from ${tableName}
-        where
-        ${attr.columnName} = ${"#\{"}${attr.columnName}}
-    </select>
-    <select id="getBy${attr.columnName?cap_first}List" resultType="${packageModel}.${className}">
-        select
-        *
-        from ${tableName}
-        where
-        ${attr.columnName} in
-        <foreach collection="list" item="item" separator="," open="(" close=")">
-            ${"#\{"}item}
-        </foreach>
-    </select>
-        </#if>
-    </#list>
 
 
     <sql id="baseResult">

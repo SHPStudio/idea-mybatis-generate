@@ -31,5 +31,29 @@ public class TypeSwitch {
                 throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.TypeSwitch");
         }
     }
-
+    public static String  isTime(String typeName){
+        typeName=typeName.replaceAll(" UNSIGNED","");
+        switch (typeName){
+            case "VARCHAR": return "no";
+            case "CHAR" :return "no";
+            case "TEXT" :return "no";
+            case "INTEGER" : return "no";
+            case "BIGINT": return "no";
+            case "TINYINT": return "no";
+            case "SMALLINT":return "no";
+            case "MEDIUMINT": return "no";
+            case "INT":return "no";
+            case "FLOAT":return "no";
+            case "DOUBLE":return "no";
+            case "DECIMAL" :return "no";
+            case "DATE":return "yes";
+            case "TIME":return "yes";
+            case "TIMESTAMP":return "yes";
+            case "MEDIUMTEXT":return "no";
+            case "LONGTEXT":return "no";
+            case "DATETIME":return "yes";
+            default:
+                throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.TypeSwitch");
+        }
+    }
 }
