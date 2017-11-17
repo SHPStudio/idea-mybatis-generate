@@ -56,14 +56,14 @@ public class MysqlCommon {
         this.password = password;
     }
 
-    public MysqlCommon(String url, String schema, String user, String password) {
+    public MysqlCommon(String url, String schema, String user, String password) throws SQLException, ClassNotFoundException {
         this.url = url;
         this.schema=schema;
         this.user = user;
         this.password = password;
         getDatabaseMetaData();
     }
-    public MysqlCommon(){
+    public MysqlCommon() throws SQLException, ClassNotFoundException {
         this.url = RuntimeEnv.pp.getUrl();
         this.schema=RuntimeEnv.pp.getSchema();
         this.user = RuntimeEnv.pp.getUser();
@@ -74,19 +74,13 @@ public class MysqlCommon {
     /**
      * @return 元数据获取
      */
-    private void getDatabaseMetaData() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = this.url+"/"+schema;
-            String user = this.user;
-            String password = this.password;
-            con = DriverManager.getConnection(url, user, password);
-            databaseMetaData= con.getMetaData();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void getDatabaseMetaData() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        String url = this.url+"/"+schema;
+        String user = this.user;
+        String password = this.password;
+        con = DriverManager.getConnection(url, user, password);
+        databaseMetaData= con.getMetaData();
     }
 
 
@@ -184,11 +178,4 @@ public class MysqlCommon {
         return mySqlDataList;
     }
 
-    public static void main(String[] args) {
-        MysqlCommon mysqlCommon = new MysqlCommon("jdbc:mysql://139.129.23.72:3307","cookbook","root","123456");
-        mysqlCommon.getDatabaseMetaData();
-        List<MySqlData> mySqlDataList=mysqlCommon.getTableColumns("test");
-        System.out.println(JSON.toJSONString(mySqlDataList));
-        System.out.println(1);
-    }
 }

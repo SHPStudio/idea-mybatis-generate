@@ -19,6 +19,11 @@ import java.io.File;
  */
 public class MainFrame extends JFrame{
 
+    @Override
+    public void setDefaultCloseOperation(int operation) {
+        super.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
     public String selectFilePath ;
 
     JButton cancelConnectBtn = new JButton("取消连接");
@@ -129,28 +134,32 @@ public class MainFrame extends JFrame{
             RuntimeEnv.pp.setSchema(schemaField.getText());
             RuntimeEnv.pp.setPassword(textField3.getText());
             RuntimeEnv.storage();
-            RuntimeEnv.mc = new MysqlCommon();
-            connectBtn.setEnabled(false);
-            connectBtn.setText("连接成功");
-            cancelConnectBtn.setEnabled(true);
-            textField1.setEnabled(false);
-            schemaField.setEnabled(false);
-            textField2.setEnabled(false);
-            textField3.setEnabled(false);
-            pane2.setVisible(true);
-            pane3.setVisible(true);
-            System.out.println("connect");
-            final Integer[] selected = {null};
-            int index = 0;
-            for (String table :RuntimeEnv.mc.getTableList()){
-                defaultListModel.addElement(table);
-                if (table.equals(RuntimeEnv.pp.getTableName())){
-                    selected[0] =index;
+            try {
+                RuntimeEnv.mc = new MysqlCommon();
+                connectBtn.setEnabled(false);
+                connectBtn.setText("连接成功");
+                cancelConnectBtn.setEnabled(true);
+                textField1.setEnabled(false);
+                schemaField.setEnabled(false);
+                textField2.setEnabled(false);
+                textField3.setEnabled(false);
+                pane2.setVisible(true);
+                pane3.setVisible(true);
+                System.out.println("connect");
+                final Integer[] selected = {null};
+                int index = 0;
+                for (String table : RuntimeEnv.mc.getTableList()) {
+                    defaultListModel.addElement(table);
+                    if (table.equals(RuntimeEnv.pp.getTableName())) {
+                        selected[0] = index;
 
+                    }
+                    index++;
                 }
-                index++;
+                jList.setSelectedIndex(selected[0]);
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"连接数据库失败");
             }
-            jList.setSelectedIndex(selected[0]);
         });
         pane1.add(connectBtn);
 
