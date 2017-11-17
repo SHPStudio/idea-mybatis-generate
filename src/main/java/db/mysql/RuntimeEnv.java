@@ -15,7 +15,7 @@ public class RuntimeEnv {
 
     public static MysqlCommon mc;
 
-    public static final String storagePath = "src/main/resources/";
+    public static final String storagePath = System.getProperty("user.home").replaceAll("\\\\","/")+"/";
 
     public static final String ppEnv = "ppEnv.json";
 
@@ -23,6 +23,7 @@ public class RuntimeEnv {
     public static void storage()  {
         try {
             if (RuntimeEnv.pp != null) {
+                System.out.println(storagePath);
                 File file = new File(storagePath + ppEnv);
                 if (!file.exists()) {
                     file.createNewFile();
