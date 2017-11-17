@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 
 /**
  * db.frame
@@ -17,6 +18,8 @@ import java.awt.event.KeyListener;
  * @date 2017/10/21 10:15
  */
 public class MainFrame extends JFrame{
+
+    public String selectFilePath ;
 
     JButton cancelConnectBtn = new JButton("取消连接");
 
@@ -203,7 +206,7 @@ public class MainFrame extends JFrame{
         innerJp1.add(modelWorkOut);
         JButton modelWorkBtn = new JButton("选择model工作目录");
         modelWorkBtn.addActionListener(actionEvent->{
-            JFileChooser jfc = new JFileChooser();
+            JFileChooser jfc = selectFilePath ==null?new JFileChooser():new JFileChooser(new File(selectFilePath));
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if(jfc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION ){
                 //解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
@@ -226,7 +229,7 @@ public class MainFrame extends JFrame{
         innerJp2.add(mapperWorkOut);
         JButton mapperWorkBtn = new JButton("选择mapper工作目录");
         mapperWorkBtn.addActionListener(actionEvent->{
-            JFileChooser jfc = new JFileChooser();
+            JFileChooser jfc = selectFilePath ==null?new JFileChooser():new JFileChooser(new File(selectFilePath));
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if(jfc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION ){
                 //解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
@@ -249,7 +252,7 @@ public class MainFrame extends JFrame{
         innerJp3.add(xmlWorkOut);
         JButton xmlWorkBtn = new JButton("选择xml工作目录");
         xmlWorkBtn.addActionListener(actionEvent->{
-            JFileChooser jfc = new JFileChooser();
+            JFileChooser jfc = selectFilePath ==null?new JFileChooser():new JFileChooser(new File(selectFilePath));
             jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if(jfc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION ){
                 //解释下这里,弹出个对话框,可以选择要上传的文件,如果选择了,就把选择的文件的绝对路径打印出来,有了绝对路径,通过JTextField的settext就能设置进去了,那个我没写
