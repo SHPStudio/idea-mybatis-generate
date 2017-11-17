@@ -5,6 +5,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -46,15 +47,21 @@ public class MysqlGenUtils {
             dir.mkdirs();
         }
         File file = new File(dir, fileName);
-        if (!file.exists() || overwrite) {
-            OutputStream fos = new FileOutputStream(new File(dir, fileName)); //文件的生成目录
-            Writer out = new OutputStreamWriter(fos);
-            temp.process(root, out);
-            fos.flush();
-            fos.close();
-            System.out.println(fileName + "gen code success!");
-        } else {
-            replaceOldContent(root, dir, fileName, temp);
+        int isProduce = 1;
+        if (file.exists()){
+            isProduce =JOptionPane.showConfirmDialog(null,fileName +"文件已存在，是否生成","提示",JOptionPane.YES_NO_OPTION);
+        }
+        if (isProduce == 0) {
+            if (!file.exists() || overwrite) {
+                OutputStream fos = new FileOutputStream(new File(dir, fileName)); //文件的生成目录
+                Writer out = new OutputStreamWriter(fos);
+                temp.process(root, out);
+                fos.flush();
+                fos.close();
+                System.out.println(fileName + "gen code success!");
+            } else {
+                replaceOldContent(root, dir, fileName, temp);
+            }
         }
     }
 
