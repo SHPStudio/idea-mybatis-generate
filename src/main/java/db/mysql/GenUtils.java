@@ -71,7 +71,7 @@ public class GenUtils {
             dir.mkdirs();
         }
         OutputStream fos = new FileOutputStream( new File(dir, String.valueOf(root.get("fileName")))); //java文件的生成目录
-        Writer out = new OutputStreamWriter(fos);
+        Writer out = new OutputStreamWriter(fos,"UTF-8");
         temp.process(root, out);
 
         fos.flush();

@@ -35,7 +35,7 @@ public class MysqlGenUtils {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static void gen(String outPath, Map<String, Object> root, String templateName, String fileName, boolean overwrite) throws IOException, TemplateException {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
-        cfg.setDirectoryForTemplateLoading(new File(configPath));
+        cfg.setClassForTemplateLoading(MysqlGenUtils.class,"/template");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         Template temp = cfg.getTemplate(templateName);
@@ -54,7 +54,7 @@ public class MysqlGenUtils {
         if (isProduce == 0) {
             if (!file.exists() || overwrite) {
                 OutputStream fos = new FileOutputStream(new File(dir, fileName)); //文件的生成目录
-                Writer out = new OutputStreamWriter(fos);
+                Writer out = new OutputStreamWriter(fos,"UTF-8");
                 temp.process(root, out);
                 fos.flush();
                 fos.close();
@@ -70,26 +70,26 @@ public class MysqlGenUtils {
         String tempFileStr = fileName + "temp";
         String midFileStr = fileName + "mid";
         OutputStream fos = null;
-        Writer out = null;
+        OutputStreamWriter out = null;
         File tempFile = new File(dir, tempFileStr);
         File oldFile = new File(dir, fileName);
         File midFile = new File(dir, midFileStr);
         BufferedReader oldFileReader = null;
         BufferedReader newFileReader = null;
-        FileWriter midFileWrite = null;
+        OutputStreamWriter midFileWrite = null;
 
         try {
             //先生成临时目录
             fos = new FileOutputStream(tempFile);
-            out = new OutputStreamWriter(fos);
+            out = new OutputStreamWriter(fos,"UTF-8");
             temp.process(root, out);
             fos.flush();
             out.close();
             fos.close();
 
             //再读取存在的文件
-            oldFileReader = new BufferedReader(new FileReader(oldFile));
-            midFileWrite = new FileWriter(midFile);
+            oldFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(oldFile),"UTF-8"));
+            midFileWrite = new OutputStreamWriter(new FileOutputStream(midFile),"UTF-8");
             String line = null;
             boolean st = false, ed = false;
 
@@ -104,7 +104,7 @@ public class MysqlGenUtils {
                 throw new IllegalAccessException("未找到代码起始段");
             }
             //找到生成文件的起始段
-            newFileReader = new BufferedReader(new FileReader(tempFile));
+            newFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(tempFile),"UTF-8"));
             while ((line = newFileReader.readLine()) != null) {
                 if (stFind.matcher(line).find()) {
                     break;
@@ -125,8 +125,8 @@ public class MysqlGenUtils {
             oldFileReader.close();
             midFileWrite.close();
 
-            BufferedWriter newFileWrite = new BufferedWriter(new FileWriter(oldFile));
-            BufferedReader midFileReader = new BufferedReader(new FileReader(midFile));
+            BufferedWriter newFileWrite = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(oldFile),"UTF-8"));
+            BufferedReader midFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(midFile),"UTF-8"));
 
             while ((line = midFileReader.readLine()) != null) {
                 newFileWrite.write(line + lineSeparator);
