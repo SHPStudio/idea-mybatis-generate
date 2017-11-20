@@ -43,9 +43,11 @@ public class MysqlGenUtils {
             dir.mkdirs();
         }
         File file = new File(dir, fileName);
-        int isProduce = 1;
+        int isProduce;
         if (file.exists()){
             isProduce =JOptionPane.showConfirmDialog(null,fileName +"文件已存在，是否生成","提示",JOptionPane.YES_NO_OPTION);
+        }else {
+            isProduce = 0;
         }
         if (isProduce == 0) {
             if (!file.exists() || overwrite) {
