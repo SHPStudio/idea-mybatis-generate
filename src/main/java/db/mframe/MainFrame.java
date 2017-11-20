@@ -158,7 +158,7 @@ public class MainFrame extends JFrame{
                 }
                 jList.setSelectedIndex(selected[0]);
             }catch (Exception e){
-                JOptionPane.showMessageDialog(null,"连接数据库失败");
+                JOptionPane.showMessageDialog(null,"连接数据库失败:"+e.getMessage());
             }
         });
         pane1.add(connectBtn);
