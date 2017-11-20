@@ -49,6 +49,8 @@ public class MainFrame extends JFrame{
 
     JTextField xmlOut=new JTextField();
 
+    JTextField author = new JTextField();
+
     DefaultListModel<String> defaultListModel= new DefaultListModel();
 
     JList<String> jList = new JList<>(defaultListModel);
@@ -71,6 +73,7 @@ public class MainFrame extends JFrame{
         modelWorkOut.setPreferredSize(new Dimension(150,26));
         mapperWorkOut.setPreferredSize(new Dimension(150,26));
         xmlWorkOut.setPreferredSize(new Dimension(150,26));
+        author.setPreferredSize(new Dimension(150,26));
 
     }
 
@@ -324,6 +327,9 @@ public class MainFrame extends JFrame{
 
         pane3.add(packgeFiler);
 
+        author.setText(RuntimeEnv.pp.getAuthor());
+        pane3.add(author);
+
         JButton generate = new JButton("生成模板");
         generate.addActionListener(actionEvent->{
             boolean pack=packgeFiler.getSelectedObjects()!=null;
@@ -342,6 +348,7 @@ public class MainFrame extends JFrame{
             RuntimeEnv.pp.setPackageXmlMapper(xmlOut.getText());
             RuntimeEnv.pp.setMapperXmlOutPath(xmlWorkOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageXmlMapper().replaceAll("\\.","/"):""));
             RuntimeEnv.pp.setOverwrite(overwrite.getSelectedObjects()!=null);
+            RuntimeEnv.pp.setAuthor(author.getText());
             try {
                 Main.generate();
                 RuntimeEnv.storage();

@@ -43,7 +43,7 @@ public class ProducerParam {
     @JSONField(ordinal = 13)
     private String mapperXmlName = className + Suffix_Mapper;
     @JSONField(ordinal = 14)
-    private String author = "jlh";
+    private String author = "author";
     @JSONField(ordinal = 15)
     private boolean overwrite = false;
     @JSONField(ordinal = 16)
