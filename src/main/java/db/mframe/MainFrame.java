@@ -342,9 +342,15 @@ public class MainFrame extends JFrame{
             RuntimeEnv.pp.setPackageXmlMapper(xmlOut.getText());
             RuntimeEnv.pp.setMapperXmlOutPath(xmlWorkOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageXmlMapper().replaceAll("\\.","/"):""));
             RuntimeEnv.pp.setOverwrite(overwrite.getSelectedObjects()!=null);
-            Main.generate();
-            RuntimeEnv.storage();
-            JOptionPane.showMessageDialog(null,"生成成功");
+            try {
+                Main.generate();
+                RuntimeEnv.storage();
+                JOptionPane.showMessageDialog(null,"生成成功");
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"生成失败："+e.getMessage());
+                e.printStackTrace();
+            }
+
         });
         pane3.add(generate);
     }

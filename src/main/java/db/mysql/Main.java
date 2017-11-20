@@ -1,5 +1,7 @@
 package db.mysql;
 
+import freemarker.template.TemplateException;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -12,14 +14,14 @@ import java.util.Map;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, TemplateException {
         System.out.println(RuntimeEnv.pp);
         RuntimeEnv.reader();
         generate();
         RuntimeEnv.storage();
         System.out.println(RuntimeEnv.pp);
     }
-    public static void generate(){
+    public static void generate() throws IOException, TemplateException {
         List<MySqlData> mySqlDataList = RuntimeEnv.mc.getTableColumns(RuntimeEnv.pp.getTableName());
         Map<String,Object> root = new HashMap<>();
         root.put("schema",RuntimeEnv.pp.getSchema());

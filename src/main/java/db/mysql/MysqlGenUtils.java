@@ -22,14 +22,10 @@ public class MysqlGenUtils {
 
     private static final Pattern stFind = Pattern.compile("生成代码开始"), edFind = Pattern.compile("生成代码结束");
 
-    public static void genrate(Map<String, Object> root) {
-        try {
-            gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperOutPath(), root, "Mapper.ftl", RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperXmlOutPath(), root, "MapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
-        } catch (IOException | TemplateException e) {
-            e.printStackTrace();
-        }
+    public static void genrate(Map<String, Object> root) throws IOException, TemplateException {
+        gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
+        gen(RuntimeEnv.pp.getMapperOutPath(), root, "Mapper.ftl", RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
+        gen(RuntimeEnv.pp.getMapperXmlOutPath(), root, "MapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
