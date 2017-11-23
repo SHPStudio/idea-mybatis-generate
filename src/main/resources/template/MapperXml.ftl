@@ -67,13 +67,36 @@
             </if>
         <#if attr.isTime = "yes">
             <if test="${attr.columnName}St !=null and ${attr.columnName}Ed!=null">
-                (${attr.columnName} >= ${"#\{"}${attr.columnName}St} and ${attr.columnName} &lt; ${"#\{"}${attr.columnName}Ed})
+                (${attr.columnName} >= ${"#\{"}${attr.columnName}St} and ${attr.columnName} &lt; ${"#\{"}${attr.columnName}Ed}) and
             </if>
         </#if>
             </#list>
         </trim>
     </select>
 
+    <select id="query${className}Limit1" resultType="${packageModel}.${className}">
+        select
+        <include refid="baseResult"></include>
+        from  ${tableName}
+        <trim prefix="where" suffixOverrides="and | or">
+        <#list attrs as attr>
+            <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
+            ${attr.columnName} = ${"#\{"}${attr.columnName}} and
+            </if>
+            <if test="${attr.columnName}List != null">
+            ${attr.columnName} in
+                <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
+                ${"#\{"}item}
+                </foreach> and
+            </if>
+            <#if attr.isTime = "yes">
+                <if test="${attr.columnName}St !=null and ${attr.columnName}Ed!=null">
+                    (${attr.columnName} >= ${"#\{"}${attr.columnName}St} and ${attr.columnName} &lt; ${"#\{"}${attr.columnName}Ed}) and
+                </if>
+            </#if>
+        </#list>
+        </trim>
+    </select>
 
     <sql id="baseResult">
         <trim suffixOverrides=",">

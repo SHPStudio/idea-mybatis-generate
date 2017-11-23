@@ -16,5 +16,6 @@ public interface ${className}Mapper {
 
     List<${className}> query${className}(${className} object);
 
+    ${className} query${className}Limit1(${className} object);
     //生成代码结束 don't delete
 }
