@@ -23,11 +23,21 @@ public class MysqlGenUtils {
     private static final Pattern stFind = Pattern.compile("生成代码开始"), edFind = Pattern.compile("生成代码结束");
 
     public static void genrate(Map<String, Object> root) throws IOException, TemplateException {
-        gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
-        gen(RuntimeEnv.pp.getMapperOutPath(), root, "Mapper.ftl", RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
-        gen(RuntimeEnv.pp.getMapperXmlOutPath(), root, "MapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
-    }
+        //是否读写分离
+        if (!RuntimeEnv.pp.isSperateRead()) {
+            gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperOutPath(), root, "Mapper.ftl", RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperXmlOutPath(), root, "MapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
+        }
+        else {
+            gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperOutPath()+"/read", root, "ReadMapper.ftl", "Read"+RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperOutPath()+"/write", root, "WriteMapper.ftl", "Write"+RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/read", root, "ReadMapperXml.ftl", "Read"+RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/write", root, "WriteMapperXml.ftl", "Write"+RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
 
+        }
+    }
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static void gen(String outPath, Map<String, Object> root, String templateName, String fileName, boolean overwrite) throws IOException, TemplateException {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);

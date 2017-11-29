@@ -6,7 +6,6 @@ import com.alibaba.fastjson.annotation.JSONField;
  * PACKAGE_NAME
  *
  * @author ASUS
- * @date 2017/10/20 15:37
  */
 public class ProducerParam {
     //默认后缀
@@ -54,6 +53,26 @@ public class ProducerParam {
     private String xmlWorkSpace = "xmlworkspace";
     @JSONField(ordinal = 17)
     private boolean producePackFile = false;
+    @JSONField(ordinal = 18)
+    private boolean sperateRead = false;
+    @JSONField(ordinal = 19)
+    private String speratePath ="";
+
+    public boolean isSperateRead() {
+        return sperateRead;
+    }
+
+    public void setSperateRead(boolean sperateRead) {
+        this.sperateRead = sperateRead;
+    }
+
+    public String getSperatePath() {
+        return speratePath;
+    }
+
+    public void setSperatePath(String speratePath) {
+        this.speratePath = speratePath;
+    }
 
     public String getUrl() {
         return url;
@@ -238,6 +257,8 @@ public class ProducerParam {
                 ", mapperWorkSpace='" + mapperWorkSpace + '\'' +
                 ", xmlWorkSpace='" + xmlWorkSpace + '\'' +
                 ", producePackFile=" + producePackFile +
+                ", sperateRead=" + sperateRead +
+                ", speratePath='" + speratePath + '\'' +
                 '}';
     }
 }

@@ -61,6 +61,8 @@ public class MainFrame extends JFrame{
 
     JCheckBox packgeFiler=new JCheckBox("生成包文件夹");
 
+    JCheckBox sperate=new JCheckBox("是否读写分离");
+
     {
         jScrollPane.setPreferredSize(new Dimension(150,252));
         modelField.setPreferredSize(new Dimension(150,26));
@@ -159,9 +161,12 @@ public class MainFrame extends JFrame{
                     }
                     index++;
                 }
-                jList.setSelectedIndex(selected[0]);
+                if (selected[0]!=null) {
+                    jList.setSelectedIndex(selected[0]);
+                }
             }catch (Exception e){
                 JOptionPane.showMessageDialog(null,"连接数据库失败:"+e.getMessage());
+                e.printStackTrace();
             }
         });
         pane1.add(connectBtn);
@@ -326,6 +331,13 @@ public class MainFrame extends JFrame{
         });
 
         pane3.add(packgeFiler);
+
+        sperate.setSelected(RuntimeEnv.pp.isSperateRead());
+        sperate.addActionListener(actionEvent->{
+            RuntimeEnv.pp.setSperateRead(sperate.getSelectedObjects()!=null);
+        });
+
+        pane3.add(sperate);
 
         author.setText(RuntimeEnv.pp.getAuthor());
         pane3.add(author);

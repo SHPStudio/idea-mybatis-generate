@@ -1,4 +1,4 @@
-package ${packageMapper};
+package ${packageMapper}.read;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -6,13 +6,9 @@ import ${packageModel}.${className};
 /**
 *  @author ${author}
 */
-public interface ${mapperName} {
+public interface Read${mapperName} {
 
     //生成代码开始 don't delete
-
-    int insert${className}(${className} object);
-
-    int update${className}(${className} object);
 
     List<${className}> query${className}(${className} object);
 

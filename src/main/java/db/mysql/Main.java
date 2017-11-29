@@ -31,6 +31,8 @@ public class Main {
         root.put("className",RuntimeEnv.pp.getClassName());
         root.put("author",RuntimeEnv.pp.getAuthor());
         root.put("attrs",mySqlDataList);
+        root.put("mapperName",RuntimeEnv.pp.getMapperName());
+        root.put("mapperXmlName",RuntimeEnv.pp.getMapperXmlName());
         MysqlGenUtils.genrate(root);
     }
 
