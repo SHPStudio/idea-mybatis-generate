@@ -26,7 +26,8 @@ public class TypeSwitch {
             case "TIMESTAMP":return "java.time.LocalDateTime";
             case "MEDIUMTEXT":return "String";
             case "LONGTEXT":return "String";
-            case "DATETIME":return "java.time.LocalDate";
+            case "DATETIME":return "java.time.LocalDateTime";
+            case "BIT":return "Integer";
             default:
                 throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.TypeSwitch");
         }
@@ -52,6 +53,7 @@ public class TypeSwitch {
             case "MEDIUMTEXT":return "no";
             case "LONGTEXT":return "no";
             case "DATETIME":return "yes";
+            case "BIT":return "no";
             default:
                 throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.TypeSwitch");
         }

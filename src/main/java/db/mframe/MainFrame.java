@@ -10,6 +10,10 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * db.frame
@@ -209,6 +213,19 @@ public class MainFrame extends JFrame{
                 jList.setSelectedIndex(0);
             }
         });
+
+        jList.addListSelectionListener(accessibleContext->{
+            if (jList.getSelectedValue()!=null) {
+                String content = Stream.of(jList.getSelectedValue().split("_")).map(m -> {
+                    String text = m;
+                    text = text.substring(0, 1).toUpperCase() + text.substring(1);
+                    return text;
+                }).collect(Collectors.joining());
+                modelField.setText(content);
+                mapperField.setText(content + "Mapper");
+                xmlField.setText(content + "Mapper");
+            }
+        });
         search.setText(RuntimeEnv.pp.getTableName());
         innerJp.add(search);
         innerJp.add(jScrollPane);
@@ -258,6 +275,10 @@ public class MainFrame extends JFrame{
 
         mapperField.setText(RuntimeEnv.pp.getMapperName());
         mapperOut.setText(RuntimeEnv.pp.getPackageMapper());
+
+        AutoComplate.setupAutoComplete(mapperOut,mapperWorkOut);
+        AutoComplate.setupAutoComplete(xmlOut,xmlWorkOut);
+        AutoComplate.setupAutoComplete(modelOut,modelWorkOut);
         innerJp2.add(mapperField);
         innerJp2.add(mapperOut);
 
@@ -373,4 +394,5 @@ public class MainFrame extends JFrame{
         });
         pane3.add(generate);
     }
+
 }
