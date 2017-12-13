@@ -222,8 +222,8 @@ public class MainFrame extends JFrame{
                     return text;
                 }).collect(Collectors.joining());
                 modelField.setText(content);
-                mapperField.setText(content + "Mapper");
-                xmlField.setText(content + "Mapper");
+                mapperField.setText(content);
+                xmlField.setText(content);
             }
         });
         search.setText(RuntimeEnv.pp.getTableName());
@@ -275,10 +275,6 @@ public class MainFrame extends JFrame{
 
         mapperField.setText(RuntimeEnv.pp.getMapperName());
         mapperOut.setText(RuntimeEnv.pp.getPackageMapper());
-
-        AutoComplate.setupAutoComplete(mapperOut,mapperWorkOut);
-        AutoComplate.setupAutoComplete(xmlOut,xmlWorkOut);
-        AutoComplate.setupAutoComplete(modelOut,modelWorkOut);
         innerJp2.add(mapperField);
         innerJp2.add(mapperOut);
 
@@ -318,8 +314,8 @@ public class MainFrame extends JFrame{
 
             @Override
             public void keyReleased(KeyEvent e) {
-                mapperField.setText(modelField.getText()+"Mapper");
-                xmlField.setText(modelField.getText()+"Mapper");
+                mapperField.setText(modelField.getText());
+                xmlField.setText(modelField.getText());
             }
         });
         mapperField.addKeyListener(new KeyListener() {
@@ -393,6 +389,10 @@ public class MainFrame extends JFrame{
 
         });
         pane3.add(generate);
+
+        AutoComplate.setupAutoComplete(mapperOut,mapperWorkOut);
+        AutoComplate.setupAutoComplete(xmlOut,xmlWorkOut);
+        AutoComplate.setupAutoComplete(modelOut,modelWorkOut);
     }
 
 }

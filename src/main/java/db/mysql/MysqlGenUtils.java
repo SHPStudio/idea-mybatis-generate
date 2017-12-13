@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.io.*;
 import java.util.Map;
 import java.util.regex.Pattern;
+import db.mysql.Constants;
 
 /**
  * db.mysql
@@ -26,15 +27,15 @@ public class MysqlGenUtils {
         //是否读写分离
         if (!RuntimeEnv.pp.isSperateRead()) {
             gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperOutPath(), root, "Mapper.ftl", RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperXmlOutPath(), root, "MapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperOutPath(), root, "Mapper.ftl", RuntimeEnv.pp.getMapperName() +Constants.Mapper_Suffix+ ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperXmlOutPath(), root, "MapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() +Constants.Mapper_Suffix + ".xml", RuntimeEnv.pp.isOverwrite());
         }
         else {
             gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperOutPath()+"/read", root, "ReadMapper.ftl", "Read"+RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperOutPath()+"/write", root, "WriteMapper.ftl", "Write"+RuntimeEnv.pp.getMapperName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/read", root, "ReadMapperXml.ftl", "Read"+RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/write", root, "WriteMapperXml.ftl", "Write"+RuntimeEnv.pp.getMapperXmlName() + ".xml", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperOutPath()+"/read", root, "ReadMapper.ftl", RuntimeEnv.pp.getMapperName()+Constants.Read_Suffix + ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperOutPath()+"/write", root, "WriteMapper.ftl", RuntimeEnv.pp.getMapperName() +Constants.Write_Suffix+ ".java", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/read", root, "ReadMapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() +Constants.Read_Suffix+ ".xml", RuntimeEnv.pp.isOverwrite());
+            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/write", root, "WriteMapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() +Constants.Write_Suffix+ ".xml", RuntimeEnv.pp.isOverwrite());
 
         }
     }

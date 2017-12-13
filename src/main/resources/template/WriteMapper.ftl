@@ -6,7 +6,7 @@ import ${packageModel}.${className};
 /**
 *  @author ${author}
 */
-public interface Write${mapperName} {
+public interface ${mapperName}WriteMapper {
 
     //生成代码开始 don't delete
 

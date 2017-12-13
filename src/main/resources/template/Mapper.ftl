@@ -6,7 +6,7 @@ import ${packageModel}.${className};
 /**
 *  @author ${author}
 */
-public interface ${mapperName} {
+public interface ${mapperName}Mapper {
 
     //生成代码开始 don't delete
 
