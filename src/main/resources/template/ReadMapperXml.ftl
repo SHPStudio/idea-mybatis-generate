@@ -51,6 +51,7 @@
             </#if>
         </#list>
         </trim>
+        limit 1
     </select>
 
     <sql id="baseResult">
