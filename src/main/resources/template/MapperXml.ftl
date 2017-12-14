@@ -6,7 +6,7 @@
     <!--生成代码开始 don't delete-->
 
 
-    <insert id="insert${className}">
+    <insert id="insert${className}" <#if tableAttrs.autoKey??> useGeneratedKeys="true" keyProperty="${tableAttrs.autoKey }"</#if>>
         INSERT INTO ${tableName}
         (
         <trim suffixOverrides=",">

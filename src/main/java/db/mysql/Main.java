@@ -22,7 +22,8 @@ public class Main {
         System.out.println(RuntimeEnv.pp);
     }
     public static void generate() throws IOException, TemplateException {
-        List<MySqlData> mySqlDataList = RuntimeEnv.mc.getTableColumns(RuntimeEnv.pp.getTableName());
+//        List<MySqlData> mySqlDataList = RuntimeEnv.mc.getTableColumns(RuntimeEnv.pp.getTableName());
+        TableData tableData = RuntimeEnv.mc.getTableData(RuntimeEnv.pp.getTableName());
         Map<String,Object> root = new HashMap<>();
         root.put("schema",RuntimeEnv.pp.getSchema());
         root.put("packageModel",RuntimeEnv.pp.getPackageModel());
@@ -30,7 +31,8 @@ public class Main {
         root.put("tableName",RuntimeEnv.pp.getTableName());
         root.put("className",RuntimeEnv.pp.getClassName());
         root.put("author",RuntimeEnv.pp.getAuthor());
-        root.put("attrs",mySqlDataList);
+        root.put("attrs",tableData.getColumns());
+        root.put("tableAttrs",tableData);
         root.put("mapperName",RuntimeEnv.pp.getMapperName());
         root.put("mapperXmlName",RuntimeEnv.pp.getMapperXmlName());
         MysqlGenUtils.genrate(root);

@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -178,4 +179,13 @@ public class MysqlCommon {
         return mySqlDataList;
     }
 
+
+    public TableData getTableData(String tableName){
+        TableData tableData = new TableData();
+        tableData.setTableName(tableName);
+        tableData.setColumns(this.getTableColumns(tableName));
+        Optional<MySqlData> optionalMySqlData =tableData.getColumns().stream().filter(m->!m.getIsAuto().equals("NO")).findFirst();
+        optionalMySqlData.ifPresent(mySqlData -> tableData.setAutoKey(mySqlData.getColumnName()));
+        return tableData;
+    }
 }
