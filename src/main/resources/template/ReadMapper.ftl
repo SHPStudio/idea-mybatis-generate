@@ -10,8 +10,7 @@ public interface ${mapperName}ReadMapper {
 
     //生成代码开始 don't delete
 
-    List<${className}> query${className}(${className} object);
+    <#include "base/selectMapper.ftl">
 
-    ${className} query${className}Limit1(${className} object);
     //生成代码结束 don't delete
 }

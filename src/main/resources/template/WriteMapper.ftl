@@ -10,8 +10,9 @@ public interface ${mapperName}WriteMapper {
 
     //生成代码开始 don't delete
 
-    int insert${className}(${className} object);
+    <#include "base/insertMapper.ftl">
 
-    int update${className}(${className} object);
+    <#include "base/updateMapper.ftl">
+
     //生成代码结束 don't delete
 }

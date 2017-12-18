@@ -9,13 +9,12 @@ import ${packageModel}.${className};
 public interface ${mapperName}Mapper {
 
     //生成代码开始 don't delete
+    <#include "base/insertMapper.ftl">
 
-    int insert${className}(${className} object);
+    <#include "base/updateMapper.ftl">
 
-    int update${className}(${className} object);
+    <#include "base/selectMapper.ftl">
 
-    List<${className}> query${className}(${className} object);
 
-    ${className} query${className}Limit1(${className} object);
     //生成代码结束 don't delete
 }
