@@ -1,4 +1,4 @@
-package db.mysql;
+package db.mysql.env;
 
 /**
  * db.mysql
@@ -6,7 +6,7 @@ package db.mysql;
  * @author mymx.jlh
  * @date 2017/12/13 15:00
  */
-interface Constants {
+public interface Constants {
 
     String Mapper_Suffix = "Mapper";
 

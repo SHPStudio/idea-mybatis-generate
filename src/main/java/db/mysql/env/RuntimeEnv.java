@@ -1,6 +1,8 @@
-package db.mysql;
+package db.mysql.env;
 
 import com.alibaba.fastjson.JSON;
+import db.mysql.model.ProducerParam;
+import db.mysql.process.MysqlCommon;
 
 import java.io.*;
 

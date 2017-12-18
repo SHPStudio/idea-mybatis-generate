@@ -1,8 +1,8 @@
 package db.mframe;
 
-import db.mysql.Main;
-import db.mysql.MysqlCommon;
-import db.mysql.RuntimeEnv;
+import db.mysql.GeneratorProcess;
+import db.mysql.process.MysqlCommon;
+import db.mysql.env.RuntimeEnv;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,8 +10,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -379,7 +377,7 @@ public class MainFrame extends JFrame{
             RuntimeEnv.pp.setOverwrite(overwrite.getSelectedObjects()!=null);
             RuntimeEnv.pp.setAuthor(author.getText());
             try {
-                Main.generate();
+                GeneratorProcess.generate();
                 RuntimeEnv.storage();
                 JOptionPane.showMessageDialog(null,"生成成功");
             }catch (Exception e){

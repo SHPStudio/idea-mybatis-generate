@@ -1,10 +1,12 @@
 package db.mysql;
 
+import db.mysql.env.RuntimeEnv;
+import db.mysql.model.TableData;
+import db.mysql.process.MysqlGenUtils;
 import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Map;
  * Created by ASUS on 2017/7/3.
  * 14:27
  */
-public class Main {
+public class GeneratorProcess {
 
     public static void main(String[] args) throws IOException, TemplateException {
         System.out.println(RuntimeEnv.pp);

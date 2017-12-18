@@ -1,4 +1,4 @@
-package db.mysql;
+package db.mysql.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

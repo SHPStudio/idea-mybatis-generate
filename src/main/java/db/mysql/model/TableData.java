@@ -1,4 +1,6 @@
-package db.mysql;
+package db.mysql.model;
+
+import db.mysql.model.MySqlData;
 
 import java.util.List;
 

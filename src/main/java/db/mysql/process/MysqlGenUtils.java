@@ -1,5 +1,6 @@
-package db.mysql;
+package db.mysql.process;
 
+import db.mysql.env.RuntimeEnv;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -9,7 +10,7 @@ import javax.swing.*;
 import java.io.*;
 import java.util.Map;
 import java.util.regex.Pattern;
-import db.mysql.Constants;
+import db.mysql.env.Constants;
 
 /**
  * db.mysql

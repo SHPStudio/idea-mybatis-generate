@@ -1,4 +1,4 @@
-package db.mysql;
+package db.mysql.process;
 
 /**
  * db.mysql
@@ -29,7 +29,7 @@ public class TypeSwitch {
             case "DATETIME":return "java.time.LocalDateTime";
             case "BIT":return "Integer";
             default:
-                throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.TypeSwitch");
+                throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.process.TypeSwitch");
         }
     }
     public static String  isTime(String typeName){
@@ -55,7 +55,7 @@ public class TypeSwitch {
             case "DATETIME":return "yes";
             case "BIT":return "no";
             default:
-                throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.TypeSwitch");
+                throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.process.TypeSwitch");
         }
     }
 }
