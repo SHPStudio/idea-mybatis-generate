@@ -1,6 +1,7 @@
 package db.mysql.process;
 
 import db.mysql.env.RuntimeEnv;
+import db.mysql.model.GenrateParamReq;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -18,147 +19,103 @@ import db.mysql.env.Constants;
  * 11:01
  */
 public class MysqlGenUtils {
-    private static String lineSeparator = System.getProperty("line.separator", "\n");
-
-    private static String configPath = "src/main/resources/template/";
-
-    private static final Pattern stFind = Pattern.compile("生成代码开始"), edFind = Pattern.compile("生成代码结束");
 
     public static void genrate(Map<String, Object> root) throws IOException, TemplateException {
         //是否读写分离
         if (!RuntimeEnv.pp.isSperateRead()) {
-            gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperOutPath(), root, "Mapper.ftl", RuntimeEnv.pp.getMapperName() +Constants.Mapper_Suffix+ ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperXmlOutPath(), root, "MapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() +Constants.Mapper_Suffix + ".xml", RuntimeEnv.pp.isOverwrite());
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                .withOutPath(RuntimeEnv.pp.getModelOutPath())
+                .withFileName(RuntimeEnv.pp.getClassName()+Constants.Java_Type_Suffix)
+                .withTemplateName("java.ftl")
+                .withTemplateParam(root)
+                .build());
+
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                    .withOutPath(RuntimeEnv.pp.getMapperOutPath())
+                    .withFileName(RuntimeEnv.pp.getClassName()+Constants.Mapper_Suffix+Constants.Java_Type_Suffix)
+                    .withTemplateName("Mapper.ftl")
+                    .withTemplateParam(root)
+                    .build());
+
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                    .withOutPath(RuntimeEnv.pp.getMapperXmlOutPath())
+                    .withFileName(RuntimeEnv.pp.getClassName()+Constants.Mapper_Suffix+Constants.Xml_Type_Suffix)
+                    .withTemplateName("MapperXml.ftl")
+                    .withTemplateParam(root)
+                    .build());
+
         }
         else {
-            gen(RuntimeEnv.pp.getModelOutPath(), root, "java.ftl", RuntimeEnv.pp.getClassName() + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperOutPath()+"/read", root, "ReadMapper.ftl", RuntimeEnv.pp.getMapperName()+Constants.Read_Suffix + ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperOutPath()+"/write", root, "WriteMapper.ftl", RuntimeEnv.pp.getMapperName() +Constants.Write_Suffix+ ".java", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/read", root, "ReadMapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() +Constants.Read_Suffix+ ".xml", RuntimeEnv.pp.isOverwrite());
-            gen(RuntimeEnv.pp.getMapperXmlOutPath()+"/write", root, "WriteMapperXml.ftl", RuntimeEnv.pp.getMapperXmlName() +Constants.Write_Suffix+ ".xml", RuntimeEnv.pp.isOverwrite());
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                    .withOutPath(RuntimeEnv.pp.getModelOutPath())
+                    .withFileName(RuntimeEnv.pp.getClassName()+Constants.Java_Type_Suffix)
+                    .withTemplateName("java.ftl")
+                    .withTemplateParam(root)
+                    .build());
+
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                    .withOutPath(RuntimeEnv.pp.getMapperOutPath()+Constants.Read_Path_Prefix)
+                    .withFileName(RuntimeEnv.pp.getMapperName()+Constants.Read_Suffix+Constants.Java_Type_Suffix)
+                    .withTemplateName("ReadMapper.ftl")
+                    .withTemplateParam(root)
+                    .build());
+
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                    .withOutPath(RuntimeEnv.pp.getMapperOutPath()+Constants.Write_Path_Prefix)
+                    .withFileName(RuntimeEnv.pp.getMapperName()+Constants.Write_Suffix+Constants.Java_Type_Suffix)
+                    .withTemplateName("WriteMapper.ftl")
+                    .withTemplateParam(root)
+                    .build());
+
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                    .withOutPath(RuntimeEnv.pp.getMapperXmlOutPath()+Constants.Read_Path_Prefix)
+                    .withFileName(RuntimeEnv.pp.getMapperXmlName()+Constants.Read_Suffix+Constants.Xml_Type_Suffix)
+                    .withTemplateName("ReadMapperXml.ftl")
+                    .withTemplateParam(root)
+                    .build());
+
+            gen(GenrateParamReq.GenrateParamReqBuilder.aGenrateParamReq()
+                    .withOutPath(RuntimeEnv.pp.getMapperXmlOutPath()+Constants.Write_Path_Prefix)
+                    .withFileName(RuntimeEnv.pp.getMapperXmlName()+Constants.Write_Suffix+Constants.Xml_Type_Suffix)
+                    .withTemplateName("WriteMapperXml.ftl")
+                    .withTemplateParam(root)
+                    .build());
 
         }
     }
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private static void gen(String outPath, Map<String, Object> root, String templateName, String fileName, boolean overwrite) throws IOException, TemplateException {
+    private static void gen(GenrateParamReq req) throws IOException, TemplateException {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
         cfg.setClassForTemplateLoading(MysqlGenUtils.class,"/template");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-        Template temp = cfg.getTemplate(templateName);
+        Template temp = cfg.getTemplate(req.getTemplateName());
 
         // Create the root hash
 
-        File dir = new File(outPath);
+        File dir = new File(req.getOutPath());
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File file = new File(dir, fileName);
+        File file = new File(dir, req.getFileName());
         int isProduce;
         if (file.exists()){
-            isProduce =JOptionPane.showConfirmDialog(null,fileName +"文件已存在，是否生成","提示",JOptionPane.YES_NO_OPTION);
+            isProduce =JOptionPane.showConfirmDialog(null,req.getFileName() +"文件已存在，是否生成","提示",JOptionPane.YES_NO_OPTION);
         }else {
             isProduce = 0;
         }
+        // todo 使用新的继承方式代替覆盖
         if (isProduce == 0) {
-            if (!file.exists() || overwrite) {
-                OutputStream fos = new FileOutputStream(new File(dir, fileName)); //文件的生成目录
+            if (!file.exists()) {
+                OutputStream fos = new FileOutputStream(new File(dir, req.getFileName())); //文件的生成目录
                 Writer out = new OutputStreamWriter(fos,"UTF-8");
-                temp.process(root, out);
+                temp.process(req.getTemplateParam(), out);
                 fos.flush();
                 fos.close();
-                System.out.println(fileName + "gen code success!");
+                System.out.println(req.getFileName() + "gen code success!");
             } else {
-                replaceOldContent(root, dir, fileName, temp);
+//                replaceOldContent(root, dir, fileName, temp);
             }
         }
-    }
-
-    @SuppressWarnings({"ResultOfMethodCallIgnored"})
-    private static void replaceOldContent(Map<String, Object> root, File dir, String fileName, Template temp) {
-        String tempFileStr = fileName + "temp";
-        String midFileStr = fileName + "mid";
-        OutputStream fos = null;
-        OutputStreamWriter out = null;
-        File tempFile = new File(dir, tempFileStr);
-        File oldFile = new File(dir, fileName);
-        File midFile = new File(dir, midFileStr);
-        BufferedReader oldFileReader = null;
-        BufferedReader newFileReader = null;
-        OutputStreamWriter midFileWrite = null;
-
-        try {
-            //先生成临时目录
-            fos = new FileOutputStream(tempFile);
-            out = new OutputStreamWriter(fos,"UTF-8");
-            temp.process(root, out);
-            fos.flush();
-            out.close();
-            fos.close();
-
-            //再读取存在的文件
-            oldFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(oldFile),"UTF-8"));
-            midFileWrite = new OutputStreamWriter(new FileOutputStream(midFile),"UTF-8");
-            String line = null;
-            boolean st = false, ed = false;
-
-            while ((line = oldFileReader.readLine()) != null) {
-                midFileWrite.write(line + lineSeparator);
-                if (stFind.matcher(line).find()) {
-                    st = true;
-                    break;
-                }
-            }
-            if (st = false) {
-                throw new IllegalAccessException("未找到代码起始段");
-            }
-            //找到生成文件的起始段
-            newFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(tempFile),"UTF-8"));
-            while ((line = newFileReader.readLine()) != null) {
-                if (stFind.matcher(line).find()) {
-                    break;
-                }
-            }
-            //輸入生成文件段
-            while ((line = newFileReader.readLine()) != null) {
-                midFileWrite.write(line + lineSeparator);
-                if (edFind.matcher(line).find()) {
-                    break;
-                }
-            }
-
-            while ((line = newFileReader.readLine()) != null) {
-                midFileWrite.write(line + lineSeparator);
-            }
-            newFileReader.close();
-            oldFileReader.close();
-            midFileWrite.close();
-
-            BufferedWriter newFileWrite = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(oldFile),"UTF-8"));
-            BufferedReader midFileReader = new BufferedReader(new InputStreamReader(new FileInputStream(midFile),"UTF-8"));
-
-            while ((line = midFileReader.readLine()) != null) {
-                newFileWrite.write(line + lineSeparator);
-            }
-            newFileWrite.close();
-            midFileReader.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                //删除中间文件
-                if (midFile.exists()) {
-                    midFile.delete();
-                }
-                if (tempFile.exists()) {
-                    tempFile.delete();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 }
