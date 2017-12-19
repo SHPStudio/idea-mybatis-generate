@@ -5,7 +5,7 @@
         <trim suffixOverrides=",">
                 <#list attrs as attr>
                     <if test="${attr.columnName}!=null">
-                        ${attr.columnName},
+                        `${attr.columnName}`,
                     </if>
                 </#list>
         </trim>

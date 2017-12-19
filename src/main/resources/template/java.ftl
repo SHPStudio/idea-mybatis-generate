@@ -10,8 +10,6 @@ import java.util.List;
 */
 public class ${className} {
 
-    //生成代码开始 don't delete
-
 <#list attrs as attr>
 
     <#if attr.remarks!="" || attr.nullAble?? ||attr.columnDef??>
@@ -135,6 +133,5 @@ public class ${className} {
             return this;
         }
     }
-    //生成代码结束 don't delete
 
 }

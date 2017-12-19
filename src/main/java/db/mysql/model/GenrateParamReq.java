@@ -13,6 +13,7 @@ public class GenrateParamReq {
     private String fileName;
     private Map<String, Object> templateParam;
     private String templateName;
+    private boolean overwrite;
 
     public String getOutPath() {
         return outPath;
@@ -46,6 +47,14 @@ public class GenrateParamReq {
         this.templateName = templateName;
     }
 
+    public boolean isOverwrite() {
+        return overwrite;
+    }
+
+    public void setOverwrite(boolean overwrite) {
+        this.overwrite = overwrite;
+    }
+
     @Override
     public String toString() {
         return "GenrateParamReq{" +
@@ -53,15 +62,16 @@ public class GenrateParamReq {
                 ", fileName='" + fileName + '\'' +
                 ", templateParam=" + templateParam +
                 ", templateName='" + templateName + '\'' +
+                ", overwrite=" + overwrite +
                 '}';
     }
-
 
     public static final class GenrateParamReqBuilder {
         private String outPath;
         private String fileName;
         private Map<String, Object> templateParam;
         private String templateName;
+        private boolean overwrite;
 
         private GenrateParamReqBuilder() {
         }
@@ -90,12 +100,18 @@ public class GenrateParamReq {
             return this;
         }
 
+        public GenrateParamReqBuilder withOverwrite(boolean overwrite) {
+            this.overwrite = overwrite;
+            return this;
+        }
+
         public GenrateParamReq build() {
             GenrateParamReq genrateParamReq = new GenrateParamReq();
             genrateParamReq.setOutPath(outPath);
             genrateParamReq.setFileName(fileName);
             genrateParamReq.setTemplateParam(templateParam);
             genrateParamReq.setTemplateName(templateName);
+            genrateParamReq.setOverwrite(overwrite);
             return genrateParamReq;
         }
     }

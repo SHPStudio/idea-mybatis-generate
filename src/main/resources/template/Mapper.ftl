@@ -1,4 +1,4 @@
-package ${packageMapper};
+package ${packageMapper}.base;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -6,7 +6,7 @@ import ${packageModel}.${className};
 /**
 *  @author ${author}
 */
-public interface ${mapperName}Mapper {
+public interface ${mapperName}BaseMapper {
 
     //生成代码开始 don't delete
     <#include "base/insertMapper.ftl">
