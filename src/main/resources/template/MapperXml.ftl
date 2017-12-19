@@ -3,12 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${packageMapper}.base.${mapperName}BaseMapper">
 
-    <!--生成代码开始 don't delete-->
     <#include "base/insertXML.ftl">
 
     <#include "base/updateXML.ftl">
 
     <#include "base/selectXML.ftl">
-    <!--生成代码结束  don't delete-->
 
 </mapper>
