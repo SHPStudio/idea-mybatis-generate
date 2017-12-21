@@ -59,8 +59,6 @@ public class MainFrame extends JFrame{
 
     JScrollPane  jScrollPane = new JScrollPane (jList);
 
-    JCheckBox overwrite=new JCheckBox("全覆盖生成");
-
     JCheckBox packgeFiler=new JCheckBox("生成包文件夹");
 
     JCheckBox sperate=new JCheckBox("是否读写分离");
@@ -333,12 +331,6 @@ public class MainFrame extends JFrame{
             }
         });
         pane3.setVisible(false);
-        overwrite.setSelected(RuntimeEnv.pp.isOverwrite());
-        overwrite.addActionListener(actionEvent->{
-            RuntimeEnv.pp.setOverwrite(overwrite.getSelectedObjects()!=null);
-        });
-
-        pane3.add(overwrite);
 
         packgeFiler.setSelected(RuntimeEnv.pp.isProducePackFile());
         packgeFiler.addActionListener(actionEvent->{
@@ -374,7 +366,6 @@ public class MainFrame extends JFrame{
             RuntimeEnv.pp.setMapperXmlName(xmlField.getText());
             RuntimeEnv.pp.setPackageXmlMapper(xmlOut.getText());
             RuntimeEnv.pp.setMapperXmlOutPath(xmlWorkOut.getText()+(pack?"/"+RuntimeEnv.pp.getPackageXmlMapper().replaceAll("\\.","/"):""));
-            RuntimeEnv.pp.setOverwrite(overwrite.getSelectedObjects()!=null);
             RuntimeEnv.pp.setAuthor(author.getText());
             try {
                 GeneratorProcess.generate();

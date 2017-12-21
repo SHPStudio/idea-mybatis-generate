@@ -158,7 +158,6 @@ public class MysqlGenUtils {
         else {
             isProduce = 0;
         }
-        // todo 使用新的继承方式代替覆盖
         if (isProduce == 0) {
             OutputStream fos = new FileOutputStream(new File(dir, req.getFileName())); //文件的生成目录
             Writer out = new OutputStreamWriter(fos,"UTF-8");
