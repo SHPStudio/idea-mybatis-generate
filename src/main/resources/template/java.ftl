@@ -70,7 +70,21 @@ public class ${className} {
         }
 
         public ${attr.javaTypeName} get${attr.columnName?cap_first}Ed(){
-        return this.${attr.columnName}Ed;
+            return this.${attr.columnName}Ed;
+        }
+        </#if>
+
+        <#if attr.javaTypeName = "String">
+        private List<${attr.javaTypeName}> fuzzy${attr.columnName?cap_first};
+
+        public List<${attr.javaTypeName}> getFuzzy${attr.columnName?cap_first}(){
+            return this.fuzzy${attr.columnName?cap_first};
+        }
+
+        private List<${attr.javaTypeName}> rightFuzzy${attr.columnName?cap_first};
+
+        public List<${attr.javaTypeName}> getRightFuzzy${attr.columnName?cap_first}(){
+            return this.rightFuzzy${attr.columnName?cap_first};
         }
         </#if>
     </#list>
@@ -83,6 +97,28 @@ public class ${className} {
         public QueryBuilder ${attr.columnName}BetWeen(${attr.javaTypeName} ${attr.columnName}St,${attr.javaTypeName} ${attr.columnName}Ed){
             this.${attr.columnName}St = ${attr.columnName}St;
             this.${attr.columnName}Ed = ${attr.columnName}Ed;
+            return this;
+        }
+        </#if>
+
+        <#if attr.javaTypeName = "String">
+        public QueryBuilder fuzzy${attr.columnName?cap_first} (List<${attr.javaTypeName}> fuzzy${attr.columnName?cap_first}){
+            this.fuzzy${attr.columnName?cap_first} = fuzzy${attr.columnName?cap_first};
+            return this;
+        }
+
+        public QueryBuilder fuzzy${attr.columnName?cap_first} (${attr.javaTypeName} ... fuzzy${attr.columnName?cap_first}){
+            this.fuzzy${attr.columnName?cap_first} = Arrays.asList(fuzzy${attr.columnName?cap_first});
+            return this;
+        }
+
+        public QueryBuilder rightFuzzy${attr.columnName?cap_first} (List<${attr.javaTypeName}> rightFuzzy${attr.columnName?cap_first}){
+            this.rightFuzzy${attr.columnName?cap_first} = rightFuzzy${attr.columnName?cap_first};
+            return this;
+        }
+
+        public QueryBuilder rightFuzzy${attr.columnName?cap_first} (${attr.javaTypeName} ... rightFuzzy${attr.columnName?cap_first}){
+            this.rightFuzzy${attr.columnName?cap_first} = Arrays.asList(rightFuzzy${attr.columnName?cap_first});
             return this;
         }
         </#if>

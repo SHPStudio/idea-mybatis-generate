@@ -5,23 +5,39 @@
         from  ${tableName}
         <trim prefix="where" suffixOverrides="and | or">
                 <#list attrs as attr>
-                <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
-                    `${attr.columnName}` = ${"#\{"}${attr.columnName}} and
-                </if>
+            <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
+                `${attr.columnName}` = ${"#\{"}${attr.columnName}} and
+            </if>
                 </#list>
             <if test = "(_parameter instanceof ${packageModel}.${className}${r'$'}QueryBuilder) == true">
                 <#list attrs as attr>
-                    <if test="${attr.columnName}List != null">
-                        `${attr.columnName}` in
-                        <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
-                            ${"#\{"}item}
-                        </foreach> and
-                    </if>
-            <#if attr.isTime = "yes">
+                <if test="${attr.columnName}List != null">
+                    `${attr.columnName}` in
+                    <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
+                        ${"#\{"}item}
+                    </foreach> and
+                </if>
+                <#if attr.isTime = "yes">
                 <if test="${attr.columnName}St !=null and ${attr.columnName}Ed!=null">
                     (`${attr.columnName}` >= ${"#\{"}${attr.columnName}St} and `${attr.columnName}` &lt; ${"#\{"}${attr.columnName}Ed}) and
                 </if>
-            </#if>
+                </#if>
+                <#if attr.javaTypeName = "String">
+                <if test ="fuzzy${attr.columnName?cap_first}!=null and fuzzy${attr.columnName?cap_first}.size()>0">
+                    (
+                    <foreach collection="fuzzy${attr.columnName?cap_first}"  separator="or" item="item">
+                        `${attr.columnName?cap_first}` like concat('%',${"#\{"}item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzy${attr.columnName?cap_first}!=null and rightFuzzy${attr.columnName?cap_first}.size()>0">
+                    (
+                    <foreach collection="rightFuzzy${attr.columnName?cap_first}"  separator="or" item="item">
+                        `${attr.columnName?cap_first}` like concat(${"#\{"}item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                </#if>
                 </#list>
             </if>
         </trim>
