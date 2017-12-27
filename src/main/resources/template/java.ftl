@@ -94,7 +94,8 @@ public class ${className} {
         <#list attrs as attr>
 
         <#if attr.isTime = "yes">
-        public QueryBuilder ${attr.columnName}BetWeen(${attr.javaTypeName} ${attr.columnName}St,${attr.javaTypeName} ${attr.columnName}Ed){
+
+        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>BetWeen(${attr.javaTypeName} ${attr.columnName}St,${attr.javaTypeName} ${attr.columnName}Ed){
             this.${attr.columnName}St = ${attr.columnName}St;
             this.${attr.columnName}Ed = ${attr.columnName}Ed;
             return this;
@@ -123,17 +124,17 @@ public class ${className} {
         }
         </#if>
 
-        public QueryBuilder ${attr.columnName}(${attr.javaTypeName} ${attr.columnName}){
+        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>(${attr.javaTypeName} ${attr.columnName}){
             set${attr.columnName?cap_first}(${attr.columnName});
             return this;
         }
 
-        public QueryBuilder ${attr.columnName}List(${attr.javaTypeName} ... ${attr.columnName}){
+        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>List(${attr.javaTypeName} ... ${attr.columnName}){
             this.${attr.columnName}List = Arrays.asList(${attr.columnName});
             return this;
         }
 
-        public QueryBuilder ${attr.columnName}List(List<${attr.javaTypeName}> ${attr.columnName}){
+        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>List(List<${attr.javaTypeName}> ${attr.columnName}){
             this.${attr.columnName}List = ${attr.columnName};
             return this;
         }
