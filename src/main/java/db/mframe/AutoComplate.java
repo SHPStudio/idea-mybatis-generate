@@ -131,7 +131,7 @@ public class AutoComplate {
             return;
         }
 
-        while (!file.isDirectory()){
+        while (file.exists()&&!file.isDirectory()){
             int index=packagePath.lastIndexOf(".");
             if (index==-1){
                 index=0;
