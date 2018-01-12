@@ -1,3 +1,8 @@
+插件已经集成到idea中，可以通过idea插件库下载
+
+![输入图片说明](https://gitee.com/uploads/images/2018/0112/172532_2b0f0e39_549070.png "1515749070(1).png")
+
+
 #mybatis-generate
 
 1.  自定义生成mybatis ，可以自己控制模板
