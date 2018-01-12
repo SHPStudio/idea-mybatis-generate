@@ -60,7 +60,7 @@ public class ${className} {
     <#list attrs as attr>
         private List<${attr.javaTypeName}> ${attr.columnName}List;
 
-        <#if attr.isTime = "yes">
+        <#if attr.isBetween = "yes">
         private ${attr.javaTypeName} ${attr.columnName}St;
 
         private ${attr.javaTypeName} ${attr.columnName}Ed;
@@ -93,10 +93,19 @@ public class ${className} {
         }
         <#list attrs as attr>
 
-        <#if attr.isTime = "yes">
+        <#if attr.isBetween = "yes">
 
         public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>BetWeen(${attr.javaTypeName} ${attr.columnName}St,${attr.javaTypeName} ${attr.columnName}Ed){
             this.${attr.columnName}St = ${attr.columnName}St;
+            this.${attr.columnName}Ed = ${attr.columnName}Ed;
+            return this;
+        }
+
+        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>GreaterEqThan(${attr.javaTypeName} ${attr.columnName}St){
+            this.${attr.columnName}St = ${attr.columnName}St;
+            return this;
+        }
+        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>LessEqThan(${attr.javaTypeName} ${attr.columnName}Ed){
             this.${attr.columnName}Ed = ${attr.columnName}Ed;
             return this;
         }

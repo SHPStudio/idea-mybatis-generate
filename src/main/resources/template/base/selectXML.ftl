@@ -17,9 +17,12 @@
                         ${"#\{"}item}
                     </foreach> and
                 </if>
-                <#if attr.isTime = "yes">
-                <if test="${attr.columnName}St !=null and ${attr.columnName}Ed!=null">
-                    (`${attr.columnName}` >= ${"#\{"}${attr.columnName}St} and `${attr.columnName}` &lt; ${"#\{"}${attr.columnName}Ed}) and
+                <#if attr.isBetween = "yes">
+                <if test="${attr.columnName}St !=null">
+                    `${attr.columnName}` >= ${"#\{"}${attr.columnName}St} and
+                </if>
+                <if test="${attr.columnName}Ed!=null">
+                    `${attr.columnName}` &lt;= ${"#\{"}${attr.columnName}Ed} and
                 </if>
                 </#if>
                 <#if attr.javaTypeName = "String">
@@ -61,11 +64,14 @@
                         ${"#\{"}item}
                     </foreach> and
                 </if>
-        <#if attr.isTime = "yes">
-            <if test="${attr.columnName}St !=null and ${attr.columnName}Ed!=null">
-                (`${attr.columnName}` >= ${"#\{"}${attr.columnName}St} and `${attr.columnName}` &lt; ${"#\{"}${attr.columnName}Ed}) and
-            </if>
-        </#if>
+                <#if attr.isBetween = "yes">
+                <if test="${attr.columnName}St !=null">
+                    `${attr.columnName}` >= ${"#\{"}${attr.columnName}St and
+                </if>
+                <if test="${attr.columnName}Ed!=null">
+                    `${attr.columnName}` &lt;= ${"#\{"}${attr.columnName}Ed} and
+                </if>
+                </#if>
             </#list>
             </if>
         </trim>

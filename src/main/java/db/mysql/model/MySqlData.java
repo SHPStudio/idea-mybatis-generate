@@ -45,14 +45,14 @@ public class MySqlData {
      */
     private String columnDef;
 
-    private String isTime;
+    private String isBetween;
 
-    public String getIsTime() {
-        return isTime;
+    public String getIsBetween() {
+        return isBetween;
     }
 
-    public void setIsTime(String isTime) {
-        this.isTime = isTime;
+    public void setIsBetween(String isBetween) {
+        this.isBetween = isBetween;
     }
 
     public Integer getNullAble() {
@@ -139,7 +139,7 @@ public class MySqlData {
                 ", remarks='" + remarks + '\'' +
                 ", nullAble=" + nullAble +
                 ", columnDef='" + columnDef + '\'' +
-                ", isTime='" + isTime + '\'' +
+                ", isBetween='" + isBetween + '\'' +
                 '}';
     }
 }
