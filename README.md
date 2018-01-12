@@ -1,9 +1,9 @@
-插件已经集成到idea中，可以通过idea插件库下载
+##插件已经集成到idea中，可以通过idea插件库下载
 
 ![输入图片说明](https://gitee.com/uploads/images/2018/0112/172532_2b0f0e39_549070.png "1515749070(1).png")
 
 
-#mybatis-generate
+##mybatis-generate
 
 1.  自定义生成mybatis ，可以自己控制模板
 
@@ -16,7 +16,7 @@
 5.  自由控制sql的返回的属性集，通过fetchXXX，或者excludeXXX控制  通过Builder构建查询
 
 
-#程序界面
+##程序界面
 
 ## 1.   程序主页
 ![主页](https://gitee.com/uploads/images/2017/1110/130118_532538fc_549070.png "主页.png")
