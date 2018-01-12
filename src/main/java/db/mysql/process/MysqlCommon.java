@@ -181,6 +181,30 @@ public class MysqlCommon {
         return mySqlDataList;
     }
 
+    private void getIndexInfo(String tableName) {
+        try {
+            ResultSet rs3 = databaseMetaData.getIndexInfo(null, null, tableName, false, true);
+            while (rs3.next()) {
+                System.out.println("数据库名: "+ rs3.getString(1));
+                System.out.println("表模式: "+ rs3.getString(2));
+                System.out.println("表名称: "+ rs3.getString(3));
+                System.out.println("索引值是否可以不唯一: "+ rs3.getString(4));
+                System.out.println("索引类别: "+ rs3.getString(5));
+                System.out.println("索引名称: "+ rs3.getString(6));
+                System.out.println("索引类型: "+ rs3.getString(7));
+                System.out.println("索引中的列序列号: "+ rs3.getString(8));
+                System.out.println("列名称: "+ rs3.getString(9));
+                System.out.println("列排序序列: "+ rs3.getString(10));
+                System.out.println("TYPE为 tableIndexStatistic时它是表中的行数否则它是索引中唯一值的数量: "+ rs3.getString(11));
+                System.out.println("TYPE为 tableIndexStatisic时它是用于表的页数否则它是用于当前索引的页数: "+ rs3.getString(12));
+                System.out.println("过滤器条件: "+ rs3.getString(13));
+            }
+            rs3.close();
+        }catch (Exception e ){
+            e.printStackTrace();
+        }
+    }
+
 
     public TableData getTableData(String tableName){
         TableData tableData = new TableData();
