@@ -23,8 +23,12 @@
 
 
 ## 2.   生成代码使用
-1.    ![步骤1](https://gitee.com/uploads/images/2018/0116/130621_1470c25a_549070.png "步骤1.png")
-2.    ![步骤2](https://gitee.com/uploads/images/2018/0116/130631_6e7e7ced_549070.png "步骤2.png")
-3.    ![步骤3](https://gitee.com/uploads/images/2018/0116/130640_ab36a01d_549070.png "步骤3.png")
-4.    ![步骤4](https://gitee.com/uploads/images/2018/0116/130651_87a31b5a_549070.png "步骤4.png")
-5.    ![步骤5](https://gitee.com/uploads/images/2018/0116/130659_072c031a_549070.png "步骤5.png")
+![步骤1](https://gitee.com/uploads/images/2018/0116/130621_1470c25a_549070.png "步骤1.png")
+
+![步骤2](https://gitee.com/uploads/images/2018/0116/130631_6e7e7ced_549070.png "步骤2.png")
+
+![步骤3](https://gitee.com/uploads/images/2018/0116/130640_ab36a01d_549070.png "步骤3.png")
+
+![步骤4](https://gitee.com/uploads/images/2018/0116/130651_87a31b5a_549070.png "步骤4.png")
+
+![步骤5](https://gitee.com/uploads/images/2018/0116/130659_072c031a_549070.png "步骤5.png")
