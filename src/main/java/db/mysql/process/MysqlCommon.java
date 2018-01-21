@@ -1,6 +1,7 @@
 package db.mysql.process;
 
 import db.mysql.env.RuntimeEnv;
+import db.mysql.model.DataBaseTypeEnum;
 import db.mysql.model.MySqlData;
 import db.mysql.model.TableData;
 
@@ -78,7 +79,7 @@ public class MysqlCommon {
      * @return 元数据获取
      */
     private void getDatabaseMetaData() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName(DataBaseTypeEnum.getDriver(RuntimeEnv.pp.getDataBaseType()));
         String url = this.url+"/"+schema;
         String user = this.user;
         String password = this.password;

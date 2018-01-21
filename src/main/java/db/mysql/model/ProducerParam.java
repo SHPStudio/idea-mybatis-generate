@@ -12,6 +12,8 @@ public class ProducerParam {
     public static String Suffix_Mapper = "Mapper";
 
     //链接数据库属性
+    private String dataBaseType = "mysql";
+    private String ip="ip:port";
     @JSONField(ordinal = 0)
     private String url = "url";
     @JSONField(ordinal = 1)
@@ -234,10 +236,28 @@ public class ProducerParam {
         this.producePackFile = producePackFile;
     }
 
+    public String getDataBaseType() {
+        return dataBaseType;
+    }
+
+    public void setDataBaseType(String dataBaseType) {
+        this.dataBaseType = dataBaseType;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
     @Override
     public String toString() {
         return "ProducerParam{" +
-                "url='" + url + '\'' +
+                "dataBaseType='" + dataBaseType + '\'' +
+                ", ip='" + ip + '\'' +
+                ", url='" + url + '\'' +
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +
                 ", schema='" + schema + '\'' +

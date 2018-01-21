@@ -1,6 +1,7 @@
 package db.mframe;
 
 import db.mysql.GeneratorProcess;
+import db.mysql.model.DataBaseTypeEnum;
 import db.mysql.process.MysqlCommon;
 import db.mysql.env.RuntimeEnv;
 
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,6 +29,8 @@ public class MainFrame extends JFrame{
     }
 
     public String selectFilePath ;
+
+    JComboBox  dbSelect = new JComboBox();
 
     JButton cancelConnectBtn = new JButton("取消连接");
 
@@ -64,6 +68,9 @@ public class MainFrame extends JFrame{
     JCheckBox sperate=new JCheckBox("是否读写分离");
 
     {
+        dbSelect.addItem("mysql");
+        dbSelect.addItem("oracle");
+        dbSelect.setSelectedItem(RuntimeEnv.pp.getDataBaseType());
         jScrollPane.setPreferredSize(new Dimension(150,252));
         modelField.setPreferredSize(new Dimension(150,26));
         search.setPreferredSize(new Dimension(150,26));
@@ -85,6 +92,7 @@ public class MainFrame extends JFrame{
     private static Dimension inputSize;
 
     static {
+
         titleSize=new Dimension();
         titleSize.setSize(100,20);
         inputSize = new Dimension();
@@ -106,10 +114,12 @@ public class MainFrame extends JFrame{
         JPanel pane3=new JPanel();
         contentPane.add(pane3);
 
+
         JLabel label1=new JLabel("url：");
         JTextField textField1=new JTextField();
         textField1.setColumns(10);
-        textField1.setText(RuntimeEnv.pp.getUrl());
+        textField1.setText(RuntimeEnv.pp.getIp());
+        pane1.add(dbSelect);
         pane1.add(label1);
         pane1.add(textField1);
 
@@ -134,7 +144,9 @@ public class MainFrame extends JFrame{
         pane1.add(textField3);
         JButton connectBtn = new JButton("连接");
         connectBtn.addActionListener(actionEvent->{
-            RuntimeEnv.pp.setUrl(textField1.getText());
+            RuntimeEnv.pp.setDataBaseType(dbSelect.getSelectedItem().toString());
+            RuntimeEnv.pp.setIp(textField1.getText());
+            RuntimeEnv.pp.setUrl(DataBaseTypeEnum.getUrl(dbSelect.getSelectedItem().toString(),textField1.getText()));
             RuntimeEnv.pp.setUser(textField2.getText());
             RuntimeEnv.pp.setSchema(schemaField.getText());
             RuntimeEnv.pp.setPassword(textField3.getText());
