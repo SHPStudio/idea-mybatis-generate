@@ -1,9 +1,8 @@
 package db.mframe;
 
 import db.mysql.GeneratorProcess;
-import db.mysql.model.DataBaseTypeEnum;
-import db.mysql.process.MysqlCommon;
 import db.mysql.env.RuntimeEnv;
+import db.mysql.process.MysqlCommon;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +10,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,7 +67,8 @@ public class MainFrame extends JFrame{
 
     {
         dbSelect.addItem("mysql");
-        dbSelect.addItem("oracle");
+        dbSelect.addItem("postgres");
+//        dbSelect.addItem("oracle");
         dbSelect.setSelectedItem(RuntimeEnv.pp.getDataBaseType());
         jScrollPane.setPreferredSize(new Dimension(150,252));
         modelField.setPreferredSize(new Dimension(150,26));
@@ -102,7 +101,7 @@ public class MainFrame extends JFrame{
     public MainFrame (){
         this.setTitle("mybatis生成器");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(100, 100, 970, 450);
+        this.setBounds(100, 100, 985, 450);
         JPanel contentPane=new JPanel();
         contentPane.setBorder(new EmptyBorder(5,5,5,5));
         this.setContentPane(contentPane);
@@ -118,7 +117,7 @@ public class MainFrame extends JFrame{
         JLabel label1=new JLabel("url：");
         JTextField textField1=new JTextField();
         textField1.setColumns(10);
-        textField1.setText(RuntimeEnv.pp.getIp());
+        textField1.setText(RuntimeEnv.pp.getUrl());
         pane1.add(dbSelect);
         pane1.add(label1);
         pane1.add(textField1);
@@ -145,8 +144,7 @@ public class MainFrame extends JFrame{
         JButton connectBtn = new JButton("连接");
         connectBtn.addActionListener(actionEvent->{
             RuntimeEnv.pp.setDataBaseType(dbSelect.getSelectedItem().toString());
-            RuntimeEnv.pp.setIp(textField1.getText());
-            RuntimeEnv.pp.setUrl(DataBaseTypeEnum.getUrl(dbSelect.getSelectedItem().toString(),textField1.getText()));
+            RuntimeEnv.pp.setUrl(textField1.getText());
             RuntimeEnv.pp.setUser(textField2.getText());
             RuntimeEnv.pp.setSchema(schemaField.getText());
             RuntimeEnv.pp.setPassword(textField3.getText());

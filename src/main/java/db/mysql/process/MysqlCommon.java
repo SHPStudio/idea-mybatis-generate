@@ -80,9 +80,10 @@ public class MysqlCommon {
      */
     private void getDatabaseMetaData() throws ClassNotFoundException, SQLException {
         Class.forName(DataBaseTypeEnum.getDriver(RuntimeEnv.pp.getDataBaseType()));
-        String url = this.url+"/"+schema;
+        String url = this.url;
         String user = this.user;
         String password = this.password;
+        DriverManager.setLoginTimeout(5);
         con = DriverManager.getConnection(url, user, password);
         databaseMetaData= con.getMetaData();
     }
@@ -92,7 +93,7 @@ public class MysqlCommon {
         try {
             if (tables==null) {
                 List<String> tables = new ArrayList<>();
-                ResultSet rs = databaseMetaData.getTables(null, schema, null, new String[]{"TABLE"});
+                ResultSet rs = databaseMetaData.getTables(null, null, null,null);
                 while (rs.next()) {
                     tables.add(rs.getString("TABLE_NAME"));
                 }
