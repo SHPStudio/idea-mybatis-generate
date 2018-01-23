@@ -6,6 +6,7 @@ import db.mysql.process.MysqlGenUtils;
 import freemarker.template.TemplateException;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,14 +17,14 @@ import java.util.Map;
  */
 public class GeneratorProcess {
 
-    public static void main(String[] args) throws IOException, TemplateException {
+    public static void main(String[] args) throws IOException, TemplateException, SQLException, ClassNotFoundException {
         System.out.println(RuntimeEnv.pp);
         RuntimeEnv.reader();
         generate();
         RuntimeEnv.storage();
         System.out.println(RuntimeEnv.pp);
     }
-    public static void generate() throws IOException, TemplateException {
+    public static void generate() throws IOException, TemplateException, SQLException, ClassNotFoundException {
 //        List<MySqlData> mySqlDataList = RuntimeEnv.mc.getTableColumns(RuntimeEnv.pp.getTableName());
         TableData tableData = RuntimeEnv.mc.getTableData(RuntimeEnv.pp.getTableName());
         Map<String,Object> root = new HashMap<>();
