@@ -163,6 +163,7 @@ public class MainFrame extends JFrame{
                 System.out.println("connect");
                 final Integer[] selected = {null};
                 int index = 0;
+                defaultListModel.removeAllElements();
                 for (String table : RuntimeEnv.mc.getTableList()) {
                     defaultListModel.addElement(table);
                     if (table.equals(RuntimeEnv.pp.getTableName())) {

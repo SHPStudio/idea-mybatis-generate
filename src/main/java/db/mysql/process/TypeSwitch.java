@@ -7,7 +7,7 @@ package db.mysql.process;
  */
 public class TypeSwitch {
     public static String  transfer(String typeName){
-        typeName=typeName.replaceAll(" UNSIGNED","");
+        typeName=typeName.replaceAll(" UNSIGNED","").toUpperCase();
         switch (typeName){
             case "VARCHAR": return "String";
             case "CHAR" :return "String";
@@ -28,12 +28,20 @@ public class TypeSwitch {
             case "LONGTEXT":return "String";
             case "DATETIME":return "java.time.LocalDateTime";
             case "BIT":return "Integer";
+            case "INT8":return "Long";
+            case "INT4":return "Integer";
+            case "INT2":return "Integer";
+            case "BOOL":return "Boolean";
+            case "FLOAT4":return "Float";
+            case "FLOAT8":return "Double";
+            case "BIGSERIAL":return "Long";
+            case "SERIAL":return "Integer";
             default:
                 throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.process.TypeSwitch");
         }
     }
     public static String  isBetween(String typeName){
-        typeName=typeName.replaceAll(" UNSIGNED","");
+        typeName=typeName.replaceAll(" UNSIGNED","").toUpperCase();
         switch (typeName){
             case "VARCHAR": return "no";
             case "CHAR" :return "no";
@@ -54,6 +62,14 @@ public class TypeSwitch {
             case "LONGTEXT":return "no";
             case "DATETIME":return "yes";
             case "BIT":return "yes";
+            case "INT8":return "yes";
+            case "INT4":return "yes";
+            case "INT2":return "yes";
+            case "BOOL":return "no";
+            case "FLOAT4":return "yes";
+            case "FLOAT8":return "yes";
+            case "BIGSERIAL":return "yes";
+            case "SERIAL":return "yes";
             default:
                 throw new IllegalArgumentException(typeName+" no such typeName,please edit db.mysql.process.TypeSwitch");
         }

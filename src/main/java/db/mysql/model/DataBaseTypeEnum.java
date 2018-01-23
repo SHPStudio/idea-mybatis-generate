@@ -2,6 +2,7 @@ package db.mysql.model;
 
 import db.mysql.process.metadata.DataBaseMetaDataProcess;
 import db.mysql.process.metadata.MysqlMetaDataProcess;
+import db.mysql.process.metadata.PostgresMetaDataProcess;
 
 /**
  * db.mysql.model
@@ -12,7 +13,7 @@ import db.mysql.process.metadata.MysqlMetaDataProcess;
 public enum DataBaseTypeEnum {
     Mysql("mysql","com.mysql.jdbc.Driver",new  MysqlMetaDataProcess()),
     Oracle("oracle","oracle.jdbc.driver.OracleDriver",null),
-    Postgres("postgres","org.postgresql.Driver",null)
+    Postgres("postgres","org.postgresql.Driver",new PostgresMetaDataProcess())
     ;
 
 
