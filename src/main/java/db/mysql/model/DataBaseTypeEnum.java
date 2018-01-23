@@ -11,24 +11,34 @@ import db.mysql.process.metadata.PostgresMetaDataProcess;
  * @date 2018/1/21 20:25
  */
 public enum DataBaseTypeEnum {
-    Mysql("mysql","com.mysql.jdbc.Driver",new  MysqlMetaDataProcess()),
-    Oracle("oracle","oracle.jdbc.driver.OracleDriver",null),
-    Postgres("postgres","org.postgresql.Driver",new PostgresMetaDataProcess())
+    Mysql("mysql","com.mysql.jdbc.Driver",new  MysqlMetaDataProcess(),"`"),
+    Oracle("oracle","oracle.jdbc.driver.OracleDriver",null,"`"),
+    Postgres("postgres","org.postgresql.Driver",new PostgresMetaDataProcess(),"\"")
     ;
 
 
-    DataBaseTypeEnum(String dataBaseTypeName, String driver, DataBaseMetaDataProcess metaDataProcess) {
+    DataBaseTypeEnum(String dataBaseTypeName, String driver, DataBaseMetaDataProcess metaDataProcess, String sense) {
         this.dataBaseTypeName = dataBaseTypeName;
         this.driver = driver;
         this.metaDataProcess = metaDataProcess;
+        this.sense = sense;
     }
 
     private String dataBaseTypeName;
     private String driver;
     private DataBaseMetaDataProcess metaDataProcess;
+    private String sense;
 
     public DataBaseMetaDataProcess getMetaDataProcess() {
         return metaDataProcess;
+    }
+
+    public String getSense() {
+        return sense;
+    }
+
+    public void setSense(String sense) {
+        this.sense = sense;
     }
 
     public void setMetaDataProcess(DataBaseMetaDataProcess metaDataProcess) {

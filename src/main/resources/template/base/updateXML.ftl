@@ -1,12 +1,12 @@
 
     <update id="update${className}">
-        UPDATE ${tableName}
+        UPDATE ${sense}${tableName}${sense}
         SET
         <trim suffixOverrides=",">
         <#list attrs as attr>
             <#if attr.isAuto == "NO" && attr.isKey == 0>
             <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
-                `${attr.columnName}` = ${"#\{"}${attr.columnName}},
+                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}},
             </if>
             </#if>
         </#list>
@@ -15,7 +15,7 @@
         <trim suffixOverrides="and">
         <#list attrs as attr>
             <#if attr.isKey == 1>
-                `${attr.columnName}` = ${"#\{"}${attr.columnName}} and
+                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}} and
             </#if>
         </#list>
         </trim>

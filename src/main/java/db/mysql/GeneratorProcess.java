@@ -1,6 +1,7 @@
 package db.mysql;
 
 import db.mysql.env.RuntimeEnv;
+import db.mysql.model.DataBaseTypeEnum;
 import db.mysql.model.TableData;
 import db.mysql.process.MysqlGenUtils;
 import freemarker.template.TemplateException;
@@ -38,6 +39,7 @@ public class GeneratorProcess {
         root.put("tableAttrs",tableData);
         root.put("mapperName",RuntimeEnv.pp.getMapperName());
         root.put("mapperXmlName",RuntimeEnv.pp.getMapperXmlName());
+        root.put("sense", DataBaseTypeEnum.getByName(RuntimeEnv.pp.getDataBaseType()).getSense());
         MysqlGenUtils.genrate(root);
     }
 

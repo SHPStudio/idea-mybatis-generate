@@ -1,11 +1,11 @@
 
     <insert id="insert${className}" <#if tableAttrs.autoKey??> useGeneratedKeys="true" keyProperty="${tableAttrs.autoKey }"</#if>>
-        INSERT INTO ${tableName}
+        INSERT INTO ${sense}${tableName}${sense}
         (
         <trim suffixOverrides=",">
                 <#list attrs as attr>
                     <if test="${attr.columnName}!=null">
-                        `${attr.columnName}`,
+                        ${sense}${attr.columnName}${sense},
                     </if>
                 </#list>
         </trim>
