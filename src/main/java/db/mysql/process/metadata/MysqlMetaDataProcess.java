@@ -44,7 +44,7 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
         try {
             if (tables==null) {
                 List<String> tables = new ArrayList<>();
-                ResultSet rs = databaseMetaData.getTables(null, null, null,null);
+                ResultSet rs = databaseMetaData.getTables(null, RuntimeEnv.pp.getSchema(), null, new String[]{"TABLE"});
                 while (rs.next()) {
                     tables.add(rs.getString("TABLE_NAME"));
                 }
