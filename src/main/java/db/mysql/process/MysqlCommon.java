@@ -4,8 +4,10 @@ import db.mysql.env.RuntimeEnv;
 import db.mysql.model.DataBaseTypeEnum;
 import db.mysql.model.TableData;
 import db.mysql.process.metadata.DataBaseMetaDataProcess;
+import freemarker.template.utility.CollectionUtils;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,12 +24,22 @@ public class MysqlCommon {
     }
 
 
-    public List<String> getTableList(){
-        return dataBaseMetaDataProcess.getTableList();
+    public List<String> getTableList() throws SQLException, ClassNotFoundException {
+        List<String> tables = dataBaseMetaDataProcess.getTableList();
+        if (tables==null || tables.size()==0){
+            dataBaseMetaDataProcess.connect();
+            tables = dataBaseMetaDataProcess.getTableList();
+        }
+        return tables;
     }
 
-    public TableData getTableData(String tableName){
-        return dataBaseMetaDataProcess.getTableData(tableName);
+    public TableData getTableData(String tableName) throws SQLException, ClassNotFoundException {
+        TableData tableData= dataBaseMetaDataProcess.getTableData(tableName);
+        if (tableData == null || tableData.getColumns()==null || tableData.getColumns().size()==0){
+            dataBaseMetaDataProcess.connect();
+            tableData = dataBaseMetaDataProcess.getTableData(tableName);
+        }
+        return tableData;
     }
 
 }

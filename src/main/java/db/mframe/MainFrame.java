@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -215,8 +216,13 @@ public class MainFrame extends JFrame{
             public void keyReleased(KeyEvent e) {
                 String tableName=search.getText();
                 defaultListModel.removeAllElements();
-                RuntimeEnv.mc.getTableList().stream().filter(m->m.contains(tableName))
-                    .forEach(m->defaultListModel.addElement(m));
+                try {
+                    RuntimeEnv.mc.getTableList().stream().filter(m->m.contains(tableName))
+                        .forEach(m->defaultListModel.addElement(m));
+                } catch (SQLException | ClassNotFoundException e1) {
+                    JOptionPane.showMessageDialog(null,"生成失败："+e1.getMessage());
+                    e1.printStackTrace();
+                }
                 jList.setSelectedIndex(0);
             }
         });
