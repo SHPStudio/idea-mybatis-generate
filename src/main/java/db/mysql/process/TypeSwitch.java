@@ -1,5 +1,8 @@
 package db.mysql.process;
 
+import db.mysql.env.RuntimeEnv;
+import db.mysql.model.DataBaseTypeEnum;
+
 /**
  * db.mysql
  * Created by ASUS on 2017/7/16.
@@ -27,7 +30,12 @@ public class TypeSwitch {
             case "MEDIUMTEXT":return "String";
             case "LONGTEXT":return "String";
             case "DATETIME":return "java.time.LocalDateTime";
-            case "BIT":return "Integer";
+            case "BIT":
+                if (RuntimeEnv.pp.getDataBaseType().equals(DataBaseTypeEnum.Postgres.getDataBaseTypeName())){
+                    return "String";
+                }else {
+                    return "Integer";
+                }
             case "INT8":return "Long";
             case "INT4":return "Integer";
             case "INT2":return "Integer";
