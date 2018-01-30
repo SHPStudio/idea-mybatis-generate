@@ -90,7 +90,7 @@ public class MysqlCommon {
     public List<String> getTableList (){
         try {
             if (tables==null) {
-                List<String> tables = new ArrayList<>();
+                tables = new ArrayList<>();
                 ResultSet rs = databaseMetaData.getTables(null, schema, null, new String[]{"TABLE"});
                 while (rs.next()) {
                     tables.add(rs.getString("TABLE_NAME"));

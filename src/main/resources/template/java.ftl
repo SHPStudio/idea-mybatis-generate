@@ -1,5 +1,5 @@
 package ${packageModel};
-
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,9 @@ import java.util.List;
 *
 *  @author ${author}
 */
-public class ${className} {
+public class ${className} implements Serializable {
+
+    private static final long serialVersionUID = ${timeStamp}L;
 
 <#list attrs as attr>
 

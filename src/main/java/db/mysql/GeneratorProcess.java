@@ -37,6 +37,7 @@ public class GeneratorProcess {
         root.put("tableAttrs",tableData);
         root.put("mapperName",RuntimeEnv.pp.getMapperName());
         root.put("mapperXmlName",RuntimeEnv.pp.getMapperXmlName());
+        root.put("timeStamp",String.valueOf(System.currentTimeMillis()));
         MysqlGenUtils.genrate(root);
     }
 
