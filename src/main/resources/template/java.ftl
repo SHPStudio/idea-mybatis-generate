@@ -1,6 +1,6 @@
 package ${packageModel};
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -120,7 +120,15 @@ public class ${className} implements Serializable {
         }
 
         public QueryBuilder fuzzy${attr.columnName?cap_first} (${attr.javaTypeName} ... fuzzy${attr.columnName?cap_first}){
-            this.fuzzy${attr.columnName?cap_first} = Arrays.asList(fuzzy${attr.columnName?cap_first});
+            if (fuzzy${attr.columnName?cap_first} != null){
+                List<${attr.javaTypeName}> list = new ArrayList<>();
+                for (${attr.javaTypeName} item : fuzzy${attr.columnName?cap_first}){
+                    if (item != null){
+                        list.add(item);
+                    }
+                }
+                this.fuzzy${attr.columnName?cap_first} = list;
+            }
             return this;
         }
 
@@ -130,7 +138,15 @@ public class ${className} implements Serializable {
         }
 
         public QueryBuilder rightFuzzy${attr.columnName?cap_first} (${attr.javaTypeName} ... rightFuzzy${attr.columnName?cap_first}){
-            this.rightFuzzy${attr.columnName?cap_first} = Arrays.asList(rightFuzzy${attr.columnName?cap_first});
+            if (rightFuzzy${attr.columnName?cap_first} != null){
+                List<${attr.javaTypeName}> list = new ArrayList<>();
+                for (${attr.javaTypeName} item : rightFuzzy${attr.columnName?cap_first}){
+                    if (item != null){
+                        list.add(item);
+                    }
+                }
+                this.rightFuzzy${attr.columnName?cap_first} = list;
+            }
             return this;
         }
         </#if>
@@ -141,7 +157,16 @@ public class ${className} implements Serializable {
         }
 
         public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>List(${attr.javaTypeName} ... ${attr.columnName}){
-            this.${attr.columnName}List = Arrays.asList(${attr.columnName});
+            if (${attr.columnName} != null){
+                List<${attr.javaTypeName}> list = new ArrayList<>();
+                for (${attr.javaTypeName} item : ${attr.columnName}){
+                    if (item != null){
+                        list.add(item);
+                    }
+                }
+                this.${attr.columnName}List = list;
+            }
+
             return this;
         }
 
@@ -167,7 +192,13 @@ public class ${className} implements Serializable {
         }
 
         public QueryBuilder addField(String ... fields){
-            this.fetchFields.put("otherFields",Arrays.asList(fields));
+            List<String> list = new ArrayList<>();
+            if (fields != null){
+                for (String field : fields){
+                    list.add(field);
+                }
+            }
+            this.fetchFields.put("otherFields",list);
             return this;
         }
         @SuppressWarnings("unchecked")
