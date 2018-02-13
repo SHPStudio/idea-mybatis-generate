@@ -4,7 +4,7 @@ import db.mysql.env.RuntimeEnv;
 import db.mysql.model.DataBaseTypeEnum;
 import db.mysql.model.MySqlData;
 import db.mysql.model.TableData;
-import db.mysql.process.TypeSwitch;
+import db.mysql.process.MysqlTypeSwitch;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -16,15 +16,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import db.mysql.process.TypeSwitch;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * db.mysql.process.metadata
  *
  * @author mymx.jlh
- * @date 2018/1/23 12:34
  */
-public class PostgresMetaDataProcess implements DataBaseMetaDataProcess{
+public class PostgresMetaDataProcess implements DataBaseMetaDataProcess {
     private DatabaseMetaData databaseMetaData;
     private Connection con = null;
     private List<String> tables;
@@ -38,7 +39,7 @@ public class PostgresMetaDataProcess implements DataBaseMetaDataProcess{
         String password = RuntimeEnv.pp.getPassword();
         DriverManager.setLoginTimeout(5);
         con = DriverManager.getConnection(url, user, password);
-        databaseMetaData= con.getMetaData();
+        databaseMetaData = con.getMetaData();
     }
 
     @Override
@@ -46,41 +47,41 @@ public class PostgresMetaDataProcess implements DataBaseMetaDataProcess{
         TableData tableData = new TableData();
         tableData.setTableName(tableName);
         tableData.setColumns(this.getTableColumns(tableName));
-        Optional<MySqlData> optionalMySqlData =tableData.getColumns().stream().filter(m->!m.getIsAuto().equals("NO")).findFirst();
+        Optional<MySqlData> optionalMySqlData = tableData.getColumns().stream().filter(m -> !m.getIsAuto().equals("NO")).findFirst();
         optionalMySqlData.ifPresent(mySqlData -> tableData.setAutoKey(mySqlData.getColumnName()));
         return tableData;
     }
 
     public List<MySqlData> getTableColumns(String tableName) {
         List<MySqlData> mySqlDataList = new ArrayList<MySqlData>();
-        try{
+        try {
 
             Set<String> keySet = new HashSet<>();
             ResultSet rs;
-            rs =databaseMetaData.getPrimaryKeys(null,RuntimeEnv.pp.getSchema(),tableName);
-            while (rs.next()){
+            rs = databaseMetaData.getPrimaryKeys(null, RuntimeEnv.pp.getSchema(), tableName);
+            while (rs.next()) {
                 keySet.add(rs.getString("COLUMN_NAME"));
             }
             rs = databaseMetaData.getColumns(null, RuntimeEnv.pp.getSchema(), tableName, "%");
-            while (rs.next()){
-                MySqlData mySqlData =new MySqlData();
+            while (rs.next()) {
+                MySqlData mySqlData = new MySqlData();
                 mySqlData.setColumnName(rs.getString("COLUMN_NAME"));
                 mySqlData.setTypeId(rs.getInt("DATA_TYPE"));
                 mySqlData.setTypeName(rs.getString("TYPE_NAME"));
-                mySqlData.setJavaTypeName(TypeSwitch.transfer(mySqlData.getTypeName()));
+                mySqlData.setJavaTypeName(DataBaseTypeEnum.Postgres.getTypeSwitch().transfer(mySqlData.getTypeName()));
                 mySqlData.setIsBetween(TypeSwitch.isBetween(mySqlData.getTypeName()));
-                mySqlData.setRemarks(StringUtils.defaultIfBlank(rs.getString("REMARKS"),""));
+                mySqlData.setRemarks(StringUtils.defaultIfBlank(rs.getString("REMARKS"), ""));
                 mySqlData.setNullAble(rs.getInt("NULLABLE"));
                 mySqlData.setColumnDef(rs.getString("COLUMN_DEF"));
                 mySqlData.setIsAuto(rs.getString("IS_AUTOINCREMENT"));
-                if (keySet.contains(mySqlData.getColumnName())){
+                if (keySet.contains(mySqlData.getColumnName())) {
                     mySqlData.setIsKey(1);
-                }else {
+                } else {
                     mySqlData.setIsKey(0);
                 }
                 mySqlDataList.add(mySqlData);
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return mySqlDataList;
@@ -89,15 +90,14 @@ public class PostgresMetaDataProcess implements DataBaseMetaDataProcess{
     @Override
     public List<String> getTableList() {
         try {
-            if (tables==null) {
+            if (tables == null) {
                 this.tables = new ArrayList<>();
                 ResultSet rs = databaseMetaData.getTables(null, RuntimeEnv.pp.getSchema(), null, new String[]{"TABLE"});
                 while (rs.next()) {
                     this.tables.add(rs.getString("TABLE_NAME"));
                 }
                 return this.tables;
-            }
-            else {
+            } else {
                 return tables;
             }
         } catch (SQLException e) {

@@ -4,6 +4,7 @@ import db.mysql.env.RuntimeEnv;
 import db.mysql.model.DataBaseTypeEnum;
 import db.mysql.model.MySqlData;
 import db.mysql.model.TableData;
+import db.mysql.process.MysqlTypeSwitch;
 import db.mysql.process.TypeSwitch;
 
 import java.sql.Connection;
@@ -77,7 +78,7 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
                 mySqlData.setColumnName(rs.getString("COLUMN_NAME"));
                 mySqlData.setTypeId(rs.getInt("DATA_TYPE"));
                 mySqlData.setTypeName(rs.getString("TYPE_NAME"));
-                mySqlData.setJavaTypeName(TypeSwitch.transfer(mySqlData.getTypeName()));
+                mySqlData.setJavaTypeName(DataBaseTypeEnum.Mysql.getTypeSwitch().transfer(mySqlData.getTypeName()));
                 mySqlData.setIsBetween(TypeSwitch.isBetween(mySqlData.getTypeName()));
                 mySqlData.setRemarks(rs.getString("REMARKS"));
                 mySqlData.setNullAble(rs.getInt("NULLABLE"));
