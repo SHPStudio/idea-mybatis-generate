@@ -70,6 +70,7 @@ public class PostgresMetaDataProcess implements DataBaseMetaDataProcess {
                 mySqlData.setTypeName(rs.getString("TYPE_NAME"));
                 mySqlData.setJavaTypeName(DataBaseTypeEnum.Postgres.getTypeSwitch().transfer(mySqlData.getTypeName()));
                 mySqlData.setIsBetween(DataBaseTypeEnum.Postgres.getTypeSwitch().isBetween(mySqlData.getTypeName()));
+                mySqlData.setTypeName(DataBaseTypeEnum.Postgres.getTypeSwitch().changeType(mySqlData.getTypeName()));
                 mySqlData.setRemarks(StringUtils.defaultIfBlank(rs.getString("REMARKS"), ""));
                 mySqlData.setNullAble(rs.getInt("NULLABLE"));
                 mySqlData.setColumnDef(rs.getString("COLUMN_DEF"));

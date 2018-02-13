@@ -133,4 +133,33 @@ public class PostgreTypeSwitch implements TypeSwitch {
                 throw new IllegalArgumentException(typeName + " no such typeName,please edit db.mysql.process.TypeSwitch");
         }
     }
+
+    @Override
+    public String changeType(String typeName) {
+        typeName = typeName.replaceAll(" UNSIGNED", "").toUpperCase();
+        switch (typeName) {
+            case "TINYINT":
+                return "int";
+            case "SMALLINT":
+                return "int";
+            case "MEDIUMINT":
+                return "int";
+            case "DOUBLE":
+                return "DECIMAL";
+            case "MEDIUMTEXT":
+                return "TEXT";
+            case "LONGTEXT":
+                return "TEXT";
+            case "BIT":
+                return "BIT";
+            case "BOOL":
+                return "BOOLEAN";
+            case "BIGSERIAL":
+                return "BIGINT";
+            case "SERIAL":
+                return "int";
+            default:
+                return typeName;
+        }
+    }
 }

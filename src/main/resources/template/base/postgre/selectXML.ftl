@@ -6,7 +6,7 @@
         <trim prefix="where" suffixOverrides="and | or">
                 <#list attrs as attr>
             <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
-                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}} and
+                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}}::${attr.typeName} and
             </if>
                 </#list>
             <if test = "(_parameter instanceof ${packageModel}.${className}${r'$'}QueryBuilder) == true">
@@ -14,15 +14,15 @@
                 <if test="${attr.columnName}List != null">
                     ${sense}${attr.columnName}${sense} in
                     <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
-                        ${"#\{"}item}
+                        ${"#\{"}item}::${attr.typeName}
                     </foreach> and
                 </if>
                 <#if attr.isBetween = "yes">
                 <if test="${attr.columnName}St !=null">
-                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.columnName}St} and
+                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.columnName}St}::${attr.typeName} and
                 </if>
                 <if test="${attr.columnName}Ed!=null">
-                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.columnName}Ed} and
+                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.columnName}Ed}::${attr.typeName} and
                 </if>
                 </#if>
                 <#if attr.javaTypeName = "String">
@@ -53,7 +53,7 @@
         <trim prefix="where" suffixOverrides="and | or">
             <#list attrs as attr>
             <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
-                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}} and
+                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}}::${attr.typeName} and
             </if>
             </#list>
             <if test = "(_parameter instanceof ${packageModel}.${className}${r'$'}QueryBuilder) == true">
@@ -61,15 +61,15 @@
                 <if test="${attr.columnName}List != null">
                     ${sense}${attr.columnName}${sense} in
                     <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
-                        ${"#\{"}item}
+                        ${"#\{"}item}::${attr.typeName}
                     </foreach> and
                 </if>
                 <#if attr.isBetween = "yes">
                 <if test="${attr.columnName}St !=null">
-                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.columnName}St and
+                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.columnName}St::${attr.typeName} and
                 </if>
                 <if test="${attr.columnName}Ed!=null">
-                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.columnName}Ed} and
+                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.columnName}Ed}::${attr.typeName} and
                 </if>
                 </#if>
             </#list>

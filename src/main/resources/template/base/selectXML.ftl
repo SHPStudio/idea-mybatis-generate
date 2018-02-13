@@ -1,6 +1,7 @@
 <#if databaseType = "mysql">
     <#include "mysql/selectXML.ftl">
+
 </#if>
-<#if databaseType = "postgre">
+<#if databaseType = "postgres">
     <#include "postgre/selectXML.ftl">
 </#if>

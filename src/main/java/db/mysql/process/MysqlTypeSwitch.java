@@ -114,4 +114,9 @@ public class MysqlTypeSwitch implements TypeSwitch {
                 throw new IllegalArgumentException(typeName + " no such typeName,please edit db.mysql.process.TypeSwitch");
         }
     }
+
+    @Override
+    public String changeType(String typeName) {
+        return null;
+    }
 }

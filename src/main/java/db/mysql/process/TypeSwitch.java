@@ -10,4 +10,6 @@ public interface TypeSwitch {
 
     String isBetween(String typeName);
 
+    String changeType(String typeName);
+
 }
