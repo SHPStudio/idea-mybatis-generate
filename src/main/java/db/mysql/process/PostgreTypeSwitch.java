@@ -67,7 +67,7 @@ public class PostgreTypeSwitch implements TypeSwitch {
             case "SERIAL":
                 return "Integer";
             default:
-                throw new IllegalArgumentException(typeName + " no such typeName,please edit db.mysql.process.PostgreTypeSwitch");
+                return "Object";
         }
     }
 
@@ -130,7 +130,7 @@ public class PostgreTypeSwitch implements TypeSwitch {
             case "SERIAL":
                 return "yes";
             default:
-                throw new IllegalArgumentException(typeName + " no such typeName,please edit db.mysql.process.TypeSwitch");
+                return "no";
         }
     }
 
