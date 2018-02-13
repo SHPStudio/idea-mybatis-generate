@@ -40,6 +40,7 @@ public class GeneratorProcess {
         root.put("mapperName",RuntimeEnv.pp.getMapperName());
         root.put("mapperXmlName",RuntimeEnv.pp.getMapperXmlName());
         root.put("sense", DataBaseTypeEnum.getByName(RuntimeEnv.pp.getDataBaseType()).getSense());
+        root.put("databaseType",RuntimeEnv.pp.getDataBaseType());
         MysqlGenUtils.genrate(root);
     }
 
