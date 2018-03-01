@@ -2,8 +2,7 @@
 
  
 
- **目前只支持mysql数据生成，后续会陆续支持**<br/>
- **目前postgres 适配 在分支postgres-dev已完成基础类型适配~** 
+ **已经支持postgresql常用操作，有BUG请留言，会及时修复
 
 ![输入图片说明](https://gitee.com/uploads/images/2018/0112/172532_2b0f0e39_549070.png "1515749070(1).png")
 
