@@ -23,24 +23,24 @@ public class ${className} implements Serializable {
     * isNullAble:${attr.nullAble}<#if attr.columnDef??>,defaultVal:${attr.columnDef}</#if>
     */
     </#if>
-    private ${attr.javaTypeName} ${attr.columnName};
+    private ${attr.javaTypeName} ${attr.propertiesName};
 </#list>
 
 <#list attrs as attr>
 
-    public void set${attr.columnName?cap_first}(${attr.javaTypeName} ${attr.columnName}){
-        this.${attr.columnName} = ${attr.columnName};
+    public void set${attr.propertiesName?cap_first}(${attr.javaTypeName} ${attr.propertiesName}){
+        this.${attr.propertiesName} = ${attr.propertiesName};
     }
 
-    public ${attr.javaTypeName} get${attr.columnName?cap_first}(){
-        return this.${attr.columnName};
+    public ${attr.javaTypeName} get${attr.propertiesName?cap_first}(){
+        return this.${attr.propertiesName};
     }
 </#list>
     @Override
     public String toString() {
         return "${className}{" +
             <#list attrs as attr>
-                "${attr.columnName}='" + ${attr.columnName} + '\'' +
+                "${attr.propertiesName}='" + ${attr.propertiesName} + '\'' +
             </#list>
             '}';
     }
@@ -60,33 +60,33 @@ public class ${className} implements Serializable {
         }
 
     <#list attrs as attr>
-        private List<${attr.javaTypeName}> ${attr.columnName}List;
+        private List<${attr.javaTypeName}> ${attr.propertiesName}List;
 
         <#if attr.isBetween = "yes">
-        private ${attr.javaTypeName} ${attr.columnName}St;
+        private ${attr.javaTypeName} ${attr.propertiesName}St;
 
-        private ${attr.javaTypeName} ${attr.columnName}Ed;
+        private ${attr.javaTypeName} ${attr.propertiesName}Ed;
 
-        public ${attr.javaTypeName} get${attr.columnName?cap_first}St(){
-            return this.${attr.columnName}St;
+        public ${attr.javaTypeName} get${attr.propertiesName?cap_first}St(){
+            return this.${attr.propertiesName}St;
         }
 
-        public ${attr.javaTypeName} get${attr.columnName?cap_first}Ed(){
-            return this.${attr.columnName}Ed;
+        public ${attr.javaTypeName} get${attr.propertiesName?cap_first}Ed(){
+            return this.${attr.propertiesName}Ed;
         }
         </#if>
 
         <#if attr.javaTypeName = "String">
-        private List<${attr.javaTypeName}> fuzzy${attr.columnName?cap_first};
+        private List<${attr.javaTypeName}> fuzzy${attr.propertiesName?cap_first};
 
-        public List<${attr.javaTypeName}> getFuzzy${attr.columnName?cap_first}(){
-            return this.fuzzy${attr.columnName?cap_first};
+        public List<${attr.javaTypeName}> getFuzzy${attr.propertiesName?cap_first}(){
+            return this.fuzzy${attr.propertiesName?cap_first};
         }
 
-        private List<${attr.javaTypeName}> rightFuzzy${attr.columnName?cap_first};
+        private List<${attr.javaTypeName}> rightFuzzy${attr.propertiesName?cap_first};
 
-        public List<${attr.javaTypeName}> getRightFuzzy${attr.columnName?cap_first}(){
-            return this.rightFuzzy${attr.columnName?cap_first};
+        public List<${attr.javaTypeName}> getRightFuzzy${attr.propertiesName?cap_first}(){
+            return this.rightFuzzy${attr.propertiesName?cap_first};
         }
         </#if>
     </#list>
@@ -97,91 +97,91 @@ public class ${className} implements Serializable {
 
         <#if attr.isBetween = "yes">
 
-        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>BetWeen(${attr.javaTypeName} ${attr.columnName}St,${attr.javaTypeName} ${attr.columnName}Ed){
-            this.${attr.columnName}St = ${attr.columnName}St;
-            this.${attr.columnName}Ed = ${attr.columnName}Ed;
+        public QueryBuilder <#if attr.propertiesName?starts_with("set") || attr.propertiesName?starts_with("get")>with${attr.propertiesName?cap_first}<#else>${attr.propertiesName}</#if>BetWeen(${attr.javaTypeName} ${attr.propertiesName}St,${attr.javaTypeName} ${attr.propertiesName}Ed){
+            this.${attr.propertiesName}St = ${attr.propertiesName}St;
+            this.${attr.propertiesName}Ed = ${attr.propertiesName}Ed;
             return this;
         }
 
-        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>GreaterEqThan(${attr.javaTypeName} ${attr.columnName}St){
-            this.${attr.columnName}St = ${attr.columnName}St;
+        public QueryBuilder <#if attr.propertiesName?starts_with("set") || attr.propertiesName?starts_with("get")>with${attr.propertiesName?cap_first}<#else>${attr.propertiesName}</#if>GreaterEqThan(${attr.javaTypeName} ${attr.propertiesName}St){
+            this.${attr.propertiesName}St = ${attr.propertiesName}St;
             return this;
         }
-        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>LessEqThan(${attr.javaTypeName} ${attr.columnName}Ed){
-            this.${attr.columnName}Ed = ${attr.columnName}Ed;
+        public QueryBuilder <#if attr.propertiesName?starts_with("set") || attr.propertiesName?starts_with("get")>with${attr.propertiesName?cap_first}<#else>${attr.propertiesName}</#if>LessEqThan(${attr.javaTypeName} ${attr.propertiesName}Ed){
+            this.${attr.propertiesName}Ed = ${attr.propertiesName}Ed;
             return this;
         }
         </#if>
 
         <#if attr.javaTypeName = "String">
-        public QueryBuilder fuzzy${attr.columnName?cap_first} (List<${attr.javaTypeName}> fuzzy${attr.columnName?cap_first}){
-            this.fuzzy${attr.columnName?cap_first} = fuzzy${attr.columnName?cap_first};
+        public QueryBuilder fuzzy${attr.propertiesName?cap_first} (List<${attr.javaTypeName}> fuzzy${attr.propertiesName?cap_first}){
+            this.fuzzy${attr.propertiesName?cap_first} = fuzzy${attr.propertiesName?cap_first};
             return this;
         }
 
-        public QueryBuilder fuzzy${attr.columnName?cap_first} (${attr.javaTypeName} ... fuzzy${attr.columnName?cap_first}){
-            if (fuzzy${attr.columnName?cap_first} != null){
+        public QueryBuilder fuzzy${attr.propertiesName?cap_first} (${attr.javaTypeName} ... fuzzy${attr.propertiesName?cap_first}){
+            if (fuzzy${attr.propertiesName?cap_first} != null){
                 List<${attr.javaTypeName}> list = new ArrayList<>();
-                for (${attr.javaTypeName} item : fuzzy${attr.columnName?cap_first}){
+                for (${attr.javaTypeName} item : fuzzy${attr.propertiesName?cap_first}){
                     if (item != null){
                         list.add(item);
                     }
                 }
-                this.fuzzy${attr.columnName?cap_first} = list;
+                this.fuzzy${attr.propertiesName?cap_first} = list;
             }
             return this;
         }
 
-        public QueryBuilder rightFuzzy${attr.columnName?cap_first} (List<${attr.javaTypeName}> rightFuzzy${attr.columnName?cap_first}){
-            this.rightFuzzy${attr.columnName?cap_first} = rightFuzzy${attr.columnName?cap_first};
+        public QueryBuilder rightFuzzy${attr.propertiesName?cap_first} (List<${attr.javaTypeName}> rightFuzzy${attr.propertiesName?cap_first}){
+            this.rightFuzzy${attr.propertiesName?cap_first} = rightFuzzy${attr.propertiesName?cap_first};
             return this;
         }
 
-        public QueryBuilder rightFuzzy${attr.columnName?cap_first} (${attr.javaTypeName} ... rightFuzzy${attr.columnName?cap_first}){
-            if (rightFuzzy${attr.columnName?cap_first} != null){
+        public QueryBuilder rightFuzzy${attr.propertiesName?cap_first} (${attr.javaTypeName} ... rightFuzzy${attr.propertiesName?cap_first}){
+            if (rightFuzzy${attr.propertiesName?cap_first} != null){
                 List<${attr.javaTypeName}> list = new ArrayList<>();
-                for (${attr.javaTypeName} item : rightFuzzy${attr.columnName?cap_first}){
+                for (${attr.javaTypeName} item : rightFuzzy${attr.propertiesName?cap_first}){
                     if (item != null){
                         list.add(item);
                     }
                 }
-                this.rightFuzzy${attr.columnName?cap_first} = list;
+                this.rightFuzzy${attr.propertiesName?cap_first} = list;
             }
             return this;
         }
         </#if>
 
-        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>(${attr.javaTypeName} ${attr.columnName}){
-            set${attr.columnName?cap_first}(${attr.columnName});
+        public QueryBuilder <#if attr.propertiesName?starts_with("set") || attr.propertiesName?starts_with("get")>with${attr.propertiesName?cap_first}<#else>${attr.propertiesName}</#if>(${attr.javaTypeName} ${attr.propertiesName}){
+            set${attr.propertiesName?cap_first}(${attr.propertiesName});
             return this;
         }
 
-        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>List(${attr.javaTypeName} ... ${attr.columnName}){
-            if (${attr.columnName} != null){
+        public QueryBuilder <#if attr.propertiesName?starts_with("set") || attr.propertiesName?starts_with("get")>with${attr.propertiesName?cap_first}<#else>${attr.propertiesName}</#if>List(${attr.javaTypeName} ... ${attr.propertiesName}){
+            if (${attr.propertiesName} != null){
                 List<${attr.javaTypeName}> list = new ArrayList<>();
-                for (${attr.javaTypeName} item : ${attr.columnName}){
+                for (${attr.javaTypeName} item : ${attr.propertiesName}){
                     if (item != null){
                         list.add(item);
                     }
                 }
-                this.${attr.columnName}List = list;
+                this.${attr.propertiesName}List = list;
             }
 
             return this;
         }
 
-        public QueryBuilder <#if attr.columnName?starts_with("set") || attr.columnName?starts_with("get")>with${attr.columnName?cap_first}<#else>${attr.columnName}</#if>List(List<${attr.javaTypeName}> ${attr.columnName}){
-            this.${attr.columnName}List = ${attr.columnName};
+        public QueryBuilder <#if attr.propertiesName?starts_with("set") || attr.propertiesName?starts_with("get")>with${attr.propertiesName?cap_first}<#else>${attr.propertiesName}</#if>List(List<${attr.javaTypeName}> ${attr.propertiesName}){
+            this.${attr.propertiesName}List = ${attr.propertiesName};
             return this;
         }
 
-        public QueryBuilder fetch${attr.columnName?cap_first}(){
-            setFetchFields("fetchFields","${attr.columnName}");
+        public QueryBuilder fetch${attr.propertiesName?cap_first}(){
+            setFetchFields("fetchFields","${attr.propertiesName}");
             return this;
         }
 
-        public QueryBuilder exclude${attr.columnName?cap_first}(){
-            setFetchFields("excludeFields","${attr.columnName}");
+        public QueryBuilder exclude${attr.propertiesName?cap_first}(){
+            setFetchFields("excludeFields","${attr.propertiesName}");
             return this;
         }
 

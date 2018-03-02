@@ -5,6 +5,7 @@ import db.mysql.model.DataBaseTypeEnum;
 import db.mysql.model.MySqlData;
 import db.mysql.model.TableData;
 import db.mysql.process.MysqlTypeSwitch;
+import db.mysql.process.StringUtils;
 import db.mysql.process.TypeSwitch;
 
 import java.sql.Connection;
@@ -76,6 +77,7 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
             while (rs.next()){
                 MySqlData mySqlData =new MySqlData();
                 mySqlData.setColumnName(rs.getString("COLUMN_NAME"));
+                mySqlData.setPropertiesName(RuntimeEnv.pp.isUnderlineToCamel()? StringUtils.underLineToCamel(mySqlData.getColumnName(),true):mySqlData.getColumnName());
                 mySqlData.setTypeId(rs.getInt("DATA_TYPE"));
                 mySqlData.setTypeName(rs.getString("TYPE_NAME"));
                 mySqlData.setJavaTypeName(DataBaseTypeEnum.Mysql.getTypeSwitch().transfer(mySqlData.getTypeName()));
@@ -127,7 +129,7 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
         tableData.setTableName(tableName);
         tableData.setColumns(this.getTableColumns(tableName));
         Optional<MySqlData> optionalMySqlData =tableData.getColumns().stream().filter(m->!m.getIsAuto().equals("NO")).findFirst();
-        optionalMySqlData.ifPresent(mySqlData -> tableData.setAutoKey(mySqlData.getColumnName()));
+        optionalMySqlData.ifPresent(mySqlData -> tableData.setAutoKey(mySqlData.getPropertiesName()));
         return tableData;
     }
 

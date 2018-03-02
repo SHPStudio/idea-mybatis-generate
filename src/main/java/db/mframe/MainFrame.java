@@ -3,6 +3,7 @@ package db.mframe;
 import db.mysql.GeneratorProcess;
 import db.mysql.env.RuntimeEnv;
 import db.mysql.process.MysqlCommon;
+import db.mysql.process.StringUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -65,6 +66,8 @@ public class MainFrame extends JFrame{
     JCheckBox packgeFiler=new JCheckBox("生成包文件夹");
 
     JCheckBox sperate=new JCheckBox("是否读写分离");
+
+    JCheckBox underLineToCamel=new JCheckBox("下划线转驼峰");
 
     {
         dbSelect.addItem("mysql");
@@ -229,11 +232,7 @@ public class MainFrame extends JFrame{
 
         jList.addListSelectionListener(accessibleContext->{
             if (jList.getSelectedValue()!=null) {
-                String content = Stream.of(jList.getSelectedValue().split("_")).map(m -> {
-                    String text = m;
-                    text = text.substring(0, 1).toUpperCase() + text.substring(1);
-                    return text;
-                }).collect(Collectors.joining());
+                String content = StringUtils.underLineToCamel(jList.getSelectedValue(),false);
                 modelField.setText(content);
                 mapperField.setText(content);
                 xmlField.setText(content);
@@ -355,6 +354,13 @@ public class MainFrame extends JFrame{
         });
 
         pane3.add(packgeFiler);
+
+        underLineToCamel.setSelected(RuntimeEnv.pp.isUnderlineToCamel());
+        underLineToCamel.addActionListener(actionEvent->{
+            RuntimeEnv.pp.setUnderlineToCamel(underLineToCamel.getSelectedObjects()!=null);
+        });
+
+        pane3.add(underLineToCamel);
 
         sperate.setSelected(RuntimeEnv.pp.isSperateRead());
         sperate.addActionListener(actionEvent->{

@@ -19,6 +19,10 @@ public class MySqlData {
      */
     private String columnName;
     /**
+     * 属性名
+     */
+    private String propertiesName;
+    /**
      * 数据库类型ID
      */
     private Integer typeId;
@@ -49,6 +53,14 @@ public class MySqlData {
 
     public String getIsBetween() {
         return isBetween;
+    }
+
+    public String getPropertiesName() {
+        return propertiesName;
+    }
+
+    public void setPropertiesName(String propertiesName) {
+        this.propertiesName = propertiesName;
     }
 
     public void setIsBetween(String isBetween) {
@@ -133,6 +145,7 @@ public class MySqlData {
                 "isKey=" + isKey +
                 ", isAuto='" + isAuto + '\'' +
                 ", columnName='" + columnName + '\'' +
+                ", propertiesName='" + propertiesName + '\'' +
                 ", typeId=" + typeId +
                 ", typeName='" + typeName + '\'' +
                 ", javaTypeName='" + javaTypeName + '\'' +

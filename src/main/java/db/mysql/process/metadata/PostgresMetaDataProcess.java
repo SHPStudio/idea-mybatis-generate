@@ -48,7 +48,7 @@ public class PostgresMetaDataProcess implements DataBaseMetaDataProcess {
         tableData.setTableName(tableName);
         tableData.setColumns(this.getTableColumns(tableName));
         Optional<MySqlData> optionalMySqlData = tableData.getColumns().stream().filter(m -> !m.getIsAuto().equals("NO")).findFirst();
-        optionalMySqlData.ifPresent(mySqlData -> tableData.setAutoKey(mySqlData.getColumnName()));
+        optionalMySqlData.ifPresent(mySqlData -> tableData.setAutoKey(mySqlData.getPropertiesName()));
         return tableData;
     }
 
@@ -66,6 +66,7 @@ public class PostgresMetaDataProcess implements DataBaseMetaDataProcess {
             while (rs.next()) {
                 MySqlData mySqlData = new MySqlData();
                 mySqlData.setColumnName(rs.getString("COLUMN_NAME"));
+                mySqlData.setPropertiesName(RuntimeEnv.pp.isUnderlineToCamel()? db.mysql.process.StringUtils.underLineToCamel(mySqlData.getColumnName(),true):mySqlData.getColumnName());
                 mySqlData.setTypeId(rs.getInt("DATA_TYPE"));
                 mySqlData.setTypeName(rs.getString("TYPE_NAME"));
                 mySqlData.setJavaTypeName(DataBaseTypeEnum.Postgres.getTypeSwitch().transfer(mySqlData.getTypeName()));

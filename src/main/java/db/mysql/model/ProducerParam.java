@@ -58,6 +58,16 @@ public class ProducerParam {
     private boolean sperateRead = false;
     @JSONField(ordinal = 19)
     private String speratePath ="";
+    @JSONField(ordinal = 20)
+    private boolean underlineToCamel = false;
+
+    public boolean isUnderlineToCamel() {
+        return underlineToCamel;
+    }
+
+    public void setUnderlineToCamel(boolean underlineToCamel) {
+        this.underlineToCamel = underlineToCamel;
+    }
 
     public boolean isSperateRead() {
         return sperateRead;
@@ -269,6 +279,7 @@ public class ProducerParam {
                 ", producePackFile=" + producePackFile +
                 ", sperateRead=" + sperateRead +
                 ", speratePath='" + speratePath + '\'' +
+                ", underlineToCamel=" + underlineToCamel +
                 '}';
     }
 }

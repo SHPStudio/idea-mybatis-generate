@@ -1,41 +1,47 @@
+    <resultMap type="${packageModel}.${className}" id="${className}Map">
+            <#list attrs as attr>
+                <result property="${attr.propertiesName}" column="${attr.columnName}"/>
+            </#list>
+    </resultMap>
 
-    <select id="query${className}" resultType="${packageModel}.${className}">
+
+    <select id="query${className}" resultMap="${className}Map">
         select
         <include refid="baseResult"></include>
         from  ${sense}${tableName}${sense}
         <trim prefix="where" suffixOverrides="and | or">
                 <#list attrs as attr>
-            <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
-                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}}::${attr.typeName} and
+            <if test="${attr.propertiesName} != null<#if attr.javaTypeName=="String"> and ${attr.propertiesName}!=''</#if>">
+                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.propertiesName}}::${attr.typeName} and
             </if>
                 </#list>
             <if test = "(_parameter instanceof ${packageModel}.${className}${r'$'}QueryBuilder) == true">
                 <#list attrs as attr>
-                <if test="${attr.columnName}List != null">
+                <if test="${attr.propertiesName}List != null">
                     ${sense}${attr.columnName}${sense} in
-                    <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
+                    <foreach collection="${attr.propertiesName}List" close=")" open="(" separator="," item="item">
                         ${"#\{"}item}::${attr.typeName}
                     </foreach> and
                 </if>
                 <#if attr.isBetween = "yes">
-                <if test="${attr.columnName}St !=null">
-                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.columnName}St}::${attr.typeName} and
+                <if test="${attr.propertiesName}St !=null">
+                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.propertiesName}St}::${attr.typeName} and
                 </if>
-                <if test="${attr.columnName}Ed!=null">
-                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.columnName}Ed}::${attr.typeName} and
+                <if test="${attr.propertiesName}Ed!=null">
+                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.propertiesName}Ed}::${attr.typeName} and
                 </if>
                 </#if>
                 <#if attr.javaTypeName = "String">
-                <if test ="fuzzy${attr.columnName?cap_first}!=null and fuzzy${attr.columnName?cap_first}.size()>0">
+                <if test ="fuzzy${attr.propertiesName?cap_first}!=null and fuzzy${attr.propertiesName?cap_first}.size()>0">
                     (
-                    <foreach collection="fuzzy${attr.columnName?cap_first}"  separator="or" item="item">
+                    <foreach collection="fuzzy${attr.propertiesName?cap_first}"  separator="or" item="item">
                         ${sense}${attr.columnName?cap_first}${sense} like concat('%',${"#\{"}item},'%')
                     </foreach>
                     ) and
                 </if>
-                <if test ="rightFuzzy${attr.columnName?cap_first}!=null and rightFuzzy${attr.columnName?cap_first}.size()>0">
+                <if test ="rightFuzzy${attr.propertiesName?cap_first}!=null and rightFuzzy${attr.propertiesName?cap_first}.size()>0">
                     (
-                    <foreach collection="rightFuzzy${attr.columnName?cap_first}"  separator="or" item="item">
+                    <foreach collection="rightFuzzy${attr.propertiesName?cap_first}"  separator="or" item="item">
                         ${sense}${attr.columnName?cap_first}${sense} like concat(${"#\{"}item},'%')
                     </foreach>
                     ) and
@@ -46,33 +52,49 @@
         </trim>
     </select>
 
-    <select id="query${className}Limit1" resultType="${packageModel}.${className}">
+    <select id="query${className}Limit1" resultMap="${className}Map">
         select
         <include refid="baseResult"></include>
         from  ${sense}${tableName}${sense}
         <trim prefix="where" suffixOverrides="and | or">
-            <#list attrs as attr>
-            <if test="${attr.columnName} != null<#if attr.javaTypeName=="String"> and ${attr.columnName}!=''</#if>">
-                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.columnName}}::${attr.typeName} and
+                <#list attrs as attr>
+            <if test="${attr.propertiesName} != null<#if attr.javaTypeName=="String"> and ${attr.propertiesName}!=''</#if>">
+                ${sense}${attr.columnName}${sense} = ${"#\{"}${attr.propertiesName}}::${attr.typeName} and
             </if>
-            </#list>
+                </#list>
             <if test = "(_parameter instanceof ${packageModel}.${className}${r'$'}QueryBuilder) == true">
-            <#list attrs as attr>
-                <if test="${attr.columnName}List != null">
-                    ${sense}${attr.columnName}${sense} in
-                    <foreach collection="${attr.columnName}List" close=")" open="(" separator="," item="item">
-                        ${"#\{"}item}::${attr.typeName}
-                    </foreach> and
-                </if>
+                <#list attrs as attr>
+                    <if test="${attr.propertiesName}List != null">
+                        ${sense}${attr.columnName}${sense} in
+                        <foreach collection="${attr.propertiesName}List" close=")" open="(" separator="," item="item">
+                            ${"#\{"}item}::${attr.typeName}
+                        </foreach> and
+                    </if>
                 <#if attr.isBetween = "yes">
-                <if test="${attr.columnName}St !=null">
-                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.columnName}St::${attr.typeName} and
+                <if test="${attr.propertiesName}St !=null">
+                    ${sense}${attr.columnName}${sense} >= ${"#\{"}${attr.propertiesName}St}::${attr.typeName} and
                 </if>
-                <if test="${attr.columnName}Ed!=null">
-                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.columnName}Ed}::${attr.typeName} and
+                <if test="${attr.propertiesName}Ed!=null">
+                    ${sense}${attr.columnName}${sense} &lt;= ${"#\{"}${attr.propertiesName}Ed}::${attr.typeName} and
                 </if>
                 </#if>
-            </#list>
+                <#if attr.javaTypeName = "String">
+                <if test ="fuzzy${attr.propertiesName?cap_first}!=null and fuzzy${attr.propertiesName?cap_first}.size()>0">
+                    (
+                    <foreach collection="fuzzy${attr.propertiesName?cap_first}"  separator="or" item="item">
+                        ${sense}${attr.columnName?cap_first}${sense} like concat('%',${"#\{"}item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzy${attr.propertiesName?cap_first}!=null and rightFuzzy${attr.propertiesName?cap_first}.size()>0">
+                    (
+                    <foreach collection="rightFuzzy${attr.propertiesName?cap_first}"  separator="or" item="item">
+                        ${sense}${attr.columnName?cap_first}${sense} like concat(${"#\{"}item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                </#if>
+                </#list>
             </if>
         </trim>
         limit 1
@@ -94,14 +116,14 @@
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
                 <#list attrs as attr>
-                    <if test="fetchFields.fetchFields.${attr.columnName}==true">
+                    <if test="fetchFields.fetchFields.${attr.propertiesName}==true">
                         ${sense}${attr.columnName}${sense},
                     </if>
                 </#list>
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
                 <#list attrs as attr>
-                    <if test="fetchFields.excludeFields.${attr.columnName}==null">
+                    <if test="fetchFields.excludeFields.${attr.propertiesName}==null">
                         ${sense}${attr.columnName}${sense},
                     </if>
                 </#list>

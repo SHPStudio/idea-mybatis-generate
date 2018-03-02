@@ -4,7 +4,7 @@
         (
         <trim suffixOverrides=",">
                 <#list attrs as attr>
-                    <if test="${attr.columnName}!=null">
+                    <if test="${attr.propertiesName}!=null">
                         ${sense}${attr.columnName}${sense},
                     </if>
                 </#list>
@@ -14,10 +14,10 @@
         (
         <trim suffixOverrides=",">
             <#list attrs as attr>
-                <if test="${attr.columnName}!=null">
-                    ${"#\{"}${attr.columnName}},
+                <if test="${attr.propertiesName}!=null">
+                    ${"#\{"}${attr.propertiesName}},
                 </if>
             </#list>
         </trim>
-        );
+        )
     </insert>
