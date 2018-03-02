@@ -1,5 +1,5 @@
 
-    <insert id="insert${className}" <#if tableAttrs.autoKey??> useGeneratedKeys="true" keyProperty="${tableAttrs.autoKey }"</#if>>
+    <insert id="insert${className}" <#if tableAttrs.autoKey??> useGeneratedKeys="true" keyProperty="${tableAttrs.autoKey}"</#if>>
         INSERT INTO ${sense}${tableName}${sense}
         (
         <trim suffixOverrides=",">
