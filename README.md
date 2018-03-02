@@ -2,7 +2,7 @@
 
  
 
- **已经支持postgresql常用操作，有BUG请留言，会及时修复
+ **已经支持postgresql常用操作
 
 ![输入图片说明](https://gitee.com/uploads/images/2018/0112/172532_2b0f0e39_549070.png "1515749070(1).png")
 
