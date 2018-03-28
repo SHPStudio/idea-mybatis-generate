@@ -100,31 +100,41 @@
         limit 1
     </select>
 
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+    <#list attrs as attr>
+        ${sense}${attr.columnName}${sense}<#if attr.typeName == "BIT">+0 as ${sense}${attr.columnName}${sense}</#if>,
+    </#list>
+        </trim>
+    </sql>
+
+
+
     <sql id="baseResult">
         <trim suffixOverrides=",">
             <if test = "(_parameter instanceof ${packageModel}.${className}${r'$'}QueryBuilder) == true">
 
                 <if test="fetchFields==null">
-                    *,
+                    <include refid="allResult"></include>
                 </if>
                 <if test="fetchFields!=null">
                     <if test="fetchFields.AllFields !=null">
-                        *,
+                        <include refid="allResult"></include>
                     </if>
                     <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
-                        *,
+                        <include refid="allResult"></include>
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
                 <#list attrs as attr>
                     <if test="fetchFields.fetchFields.${attr.propertiesName}==true">
-                        ${sense}${attr.columnName}${sense},
+                        ${sense}${attr.columnName}${sense}<#if attr.typeName == "BIT">+0 as ${sense}${attr.columnName}${sense}</#if>,
                     </if>
                 </#list>
                     </if>
                     <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
                 <#list attrs as attr>
                     <if test="fetchFields.excludeFields.${attr.propertiesName}==null">
-                        ${sense}${attr.columnName}${sense},
+                        ${sense}${attr.columnName}${sense}<#if attr.typeName == "BIT">+0 as ${sense}${attr.columnName}${sense}</#if>,
                     </if>
                 </#list>
                     </if>
@@ -136,7 +146,7 @@
                 </if>
             </if>
             <if test="(_parameter instanceof ${packageModel}.${className}${r'$'}QueryBuilder) == false" >
-                *,
+                <include refid="allResult"></include>
             </if>
 
         </trim>
