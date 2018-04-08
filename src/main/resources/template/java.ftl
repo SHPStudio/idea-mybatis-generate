@@ -203,7 +203,10 @@ public class ${className} implements Serializable {
         }
         @SuppressWarnings("unchecked")
         private void setFetchFields(String key,String val){
-            Map<String,Boolean> fields= (Map<String, Boolean>) this.fetchFields.getOrDefault(key,new HashMap<>());
+            Map<String,Boolean> fields= (Map<String, Boolean>) this.fetchFields.get(key);
+            if (fields == null){
+                fields = new HashMap<>();
+            }
             fields.put(val,true);
             this.fetchFields.put(key,fields);
         }
