@@ -205,7 +205,7 @@ public class ${className} implements Serializable {
         private void setFetchFields(String key,String val){
             Map<String,Boolean> fields= (Map<String, Boolean>) this.fetchFields.getOrDefault(key,new HashMap<>());
             fields.put(val,true);
-            this.fetchFields.putIfAbsent(key,fields);
+            this.fetchFields.put(key,fields);
         }
 
         public ${className} build(){
