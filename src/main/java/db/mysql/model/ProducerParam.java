@@ -13,6 +13,7 @@ public class ProducerParam {
 
     //链接数据库属性
     private String dataBaseType = "mysql";
+    //数据库地址
     @JSONField(ordinal = 0)
     private String url = "url";
     @JSONField(ordinal = 1)
@@ -44,6 +45,9 @@ public class ProducerParam {
     private String mapperXmlName = className + Suffix_Mapper;
     @JSONField(ordinal = 14)
     private String author = "author";
+    /**
+     * 是否覆盖
+     */
     @JSONField(ordinal = 15)
     private boolean overwrite = false;
     @JSONField(ordinal = 16)
@@ -52,12 +56,19 @@ public class ProducerParam {
     private String mapperWorkSpace = "mapperworkspace";
     @JSONField(ordinal = 16)
     private String xmlWorkSpace = "xmlworkspace";
+    //是否生成文件目录结构
     @JSONField(ordinal = 17)
     private boolean producePackFile = false;
+    /**
+     * 读写分离
+     */
     @JSONField(ordinal = 18)
     private boolean sperateRead = false;
     @JSONField(ordinal = 19)
     private String speratePath ="";
+    /**
+     * 下划线转驼峰
+     */
     @JSONField(ordinal = 20)
     private boolean underlineToCamel = false;
 

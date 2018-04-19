@@ -9,7 +9,13 @@ import java.util.Map;
  * @date 2017/12/18 20:40
  */
 public class GenrateParamReq {
+    /**
+     * 输出路径
+     */
     private String outPath;
+    /**
+     * 输出文件名
+     */
     private String fileName;
     private Map<String, Object> templateParam;
     private String templateName;

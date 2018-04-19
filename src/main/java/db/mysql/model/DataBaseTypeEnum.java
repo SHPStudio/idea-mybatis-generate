@@ -12,6 +12,7 @@ import db.mysql.process.metadata.PostgresMetaDataProcess;
  *
  * @author mymx.jlh
  * @date 2018/1/21 20:25
+ * 不同数据库的适配枚举
  */
 public enum DataBaseTypeEnum {
     Mysql("mysql","com.mysql.jdbc.Driver",new  MysqlMetaDataProcess(),"`",new MysqlTypeSwitch()),
@@ -28,10 +29,25 @@ public enum DataBaseTypeEnum {
         this.typeSwitch = typeSwitch;
     }
 
+    /**
+     * 数据库类型
+     */
     private String dataBaseTypeName;
+    /**
+     * 驱动
+     */
     private String driver;
+    /**
+     * 元数据处理策略对象
+     */
     private DataBaseMetaDataProcess metaDataProcess;
+    /**
+     * 数据库字段名称转义符
+     */
     private String sense;
+    /**
+     * 数据库类型与java类型适配器
+     */
     private TypeSwitch typeSwitch;
 
     public DataBaseMetaDataProcess getMetaDataProcess() {

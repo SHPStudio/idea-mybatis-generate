@@ -11,6 +11,7 @@ import java.util.List;
  *
  * @author mymx.jlh
  * @date 2018/1/23 11:44
+ * 数据库读取元数据接口
  */
 public interface DataBaseMetaDataProcess {
 
