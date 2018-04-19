@@ -15,6 +15,10 @@ public class StringUtils {
             return "";
         }
 
+        if (!isNeedChange(content)){
+            return content;
+        }
+
         String result= Stream.of(content.split("_")).map(m -> {
             String text = m;
             text = text.substring(0, 1).toUpperCase() + text.substring(1);
@@ -26,6 +30,10 @@ public class StringUtils {
         else {
             return result;
         }
+    }
+
+    private static boolean isNeedChange(String content){
+        return content.contains("_");
     }
 
 }
