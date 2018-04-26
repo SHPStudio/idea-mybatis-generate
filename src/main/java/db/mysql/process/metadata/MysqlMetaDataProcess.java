@@ -33,6 +33,7 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
 
     @Override
     public void connect() throws ClassNotFoundException, SQLException {
+        tables = null;
         Class.forName(DataBaseTypeEnum.Mysql.getDriver());
         String url = RuntimeEnv.pp.getUrl()+"/"+RuntimeEnv.pp.getSchema();
         String user = RuntimeEnv.pp.getUser();

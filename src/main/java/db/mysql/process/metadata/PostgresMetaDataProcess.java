@@ -33,6 +33,7 @@ public class PostgresMetaDataProcess implements DataBaseMetaDataProcess {
 
     @Override
     public void connect() throws ClassNotFoundException, SQLException {
+        tables = null;
         Class.forName(DataBaseTypeEnum.Postgres.getDriver());
         String url = RuntimeEnv.pp.getUrl();
         String user = RuntimeEnv.pp.getUser();
