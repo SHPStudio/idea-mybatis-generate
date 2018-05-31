@@ -18,12 +18,12 @@
 
 1.  插件已经集成到idea中，可以通过idea插件库下载
 
-![输入图片说明](https://gitee.com/uploads/images/2018/0112/172532_2b0f0e39_549070.png "1515749070(1).png")
+![idea下载](./idea下载.png)
 #### 使用说明
 1. 程序主页
-![主页](https://gitee.com/uploads/images/2017/1110/130118_532538fc_549070.png "主页.png")
+![avatar](./主页.png)
 2. 生成代码使用
-![步骤1](https://gitee.com/uploads/images/2018/0116/130621_1470c25a_549070.png "步骤1.png")
+![avatar](./example/步骤1.png)
 3. 具体使用请查询example目录
 #### 参与贡献
 
