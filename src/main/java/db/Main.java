@@ -1,6 +1,5 @@
 package db;
 
-import db.mframe.MainFrame;
 import db.mysql.env.RuntimeEnv;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +26,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("controller/generator.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/generator.fxml"));
         primaryStage.setTitle("Mybatis Generator");
         primaryStage.setScene(new Scene(root, 500, 400));
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/bird.png")));

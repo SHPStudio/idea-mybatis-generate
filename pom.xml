@@ -19,15 +19,10 @@
                 <includes>
                     <include>**/*.ftl</include>
                     <include>**/*.png</include>
+                    <include>**/*.css</include>
+                    <include>**/*.fxml</include>
                 </includes>
                 <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.css</include>
-                </includes>
             </resource>
         </resources>
         <plugins>

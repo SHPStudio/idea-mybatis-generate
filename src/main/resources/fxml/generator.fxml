@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="/css/generator.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.controller.GeneratorController">
+    <top>
+        <VBox prefHeight="20">
+        </VBox>
+    </top>
+    <center>
+        <VBox prefWidth="300" BorderPane.alignment="CENTER">
+            <HBox>
+                <ImageView fitHeight="100" fitWidth="100">
+                    <Image url="/images/bird.png" />
+               <rotationAxis>
+                  <Point3D x="50.0" z="1.0" />
+               </rotationAxis>
+                </ImageView>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <VBox.margin>
+               <Insets left="60.0" />
+            </VBox.margin>
+            </HBox>
+            <HBox>
+                <Label prefHeight="32" prefWidth="75" text="URL:" />
+                <TextField prefHeight="32" prefWidth="220" promptText="jdbc:mysql://localhost:3306" />
+            </HBox>
+            <HBox>
+                <Label prefHeight="32" prefWidth="75" text="schema:" />
+                <TextField prefHeight="32" prefWidth="220" promptText="db1" />
+            </HBox>
+        </VBox>
+    </center>
+    <left>
+        <Pane prefWidth="100" />
+    </left>
+</BorderPane>
