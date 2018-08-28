@@ -12,13 +12,22 @@
     </properties>
 
     <build>
+        <finalName>generator</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.ftl</include>
+                    <include>**/*.png</include>
                 </includes>
                 <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
+                </includes>
             </resource>
         </resources>
         <plugins>
