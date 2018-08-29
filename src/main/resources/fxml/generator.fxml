@@ -2,22 +2,17 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.layout.*?>
 <BorderPane stylesheets="/css/generator.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.controller.GeneratorController">
     <top>
         <VBox prefHeight="20">
         </VBox>
     </top>
     <center>
-        <VBox prefWidth="300" BorderPane.alignment="CENTER">
+        <VBox prefWidth="300" spacing="8.0" BorderPane.alignment="CENTER">
             <HBox>
                 <ImageView fitHeight="100" fitWidth="100">
                     <Image url="/images/bird.png" />
@@ -29,17 +24,41 @@
                <Insets />
             </opaqueInsets>
             <VBox.margin>
-               <Insets left="60.0" />
+               <Insets left="110.0" />
             </VBox.margin>
+            </HBox>
+            <HBox>
+                <Label prefHeight="32" prefWidth="75" text="jdbc"/>
+                <ChoiceBox prefHeight="32" prefWidth="220" fx:id="jdbcSelector">
+                </ChoiceBox>
+            </HBox>
+            <HBox>
+                <Label prefHeight="32" prefWidth="75" text="jdbcJar"/>
+                <ChoiceBox prefHeight="32" prefWidth="220" fx:id="jdbcJarSelector" onHiding="#jdbcJarHiding" >
+                </ChoiceBox>
             </HBox>
             <HBox>
                 <Label prefHeight="32" prefWidth="75" text="URL:" />
                 <TextField prefHeight="32" prefWidth="220" promptText="jdbc:mysql://localhost:3306" />
             </HBox>
             <HBox>
-                <Label prefHeight="32" prefWidth="75" text="schema:" />
+                <Label prefHeight="32" prefWidth="75" text="schema:"/>
                 <TextField prefHeight="32" prefWidth="220" promptText="db1" />
             </HBox>
+            <HBox>
+                <Label prefHeight="32" prefWidth="75" text="user:" />
+                <TextField prefHeight="32" prefWidth="220" promptText="root" />
+            </HBox>
+            <HBox>
+                <Label prefHeight="32" prefWidth="75" text="password:" />
+                <TextField prefHeight="32" prefWidth="220" promptText="root" />
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+                <Button text="链接" prefWidth="300" prefHeight="32"/>
+            </HBox>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
         </VBox>
     </center>
     <left>
