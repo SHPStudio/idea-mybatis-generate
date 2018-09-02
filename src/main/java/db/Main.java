@@ -30,7 +30,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/generator.fxml"));
         primaryStage.setTitle("Mybatis Generator");
-        primaryStage.setScene(new Scene(root, 500, 430));
+        primaryStage.setScene(new Scene(root, 500, 480));
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/bird.png")));
         Platform.setImplicitExit(false);
         primaryStage.show();

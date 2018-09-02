@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 public class SelectModel<T,K> {
     private T key;
     private K value;
-    private String info;
 
     public T getKey() {
         return key;
@@ -37,16 +36,9 @@ public class SelectModel<T,K> {
         this.value = value;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
 
     @Override
     public String toString() {
-        return value.toString() + (StringUtils.isNotBlank(info)?"-"+info:"");
+        return value.toString();
     }
 }
