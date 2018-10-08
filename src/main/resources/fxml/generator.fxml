@@ -39,7 +39,7 @@
             </HBox>
             <HBox fx:id="jdbcJarUrlHBox">
                 <Label prefHeight="32" prefWidth="75" text="jdbcJarUrl"/>
-                <TextField prefHeight="32" prefWidth="180" promptText="jdbcJarUrl" fx:id="jdbcJarUrl"/>
+                <TextField prefHeight="32" prefWidth="180" promptText="jdbcJarUrl" fx:id="jdbcJarUrl" styleClass="noRightBorder"/>
                 <Button prefWidth="40" prefHeight="32" text="选择" fx:id="jdbcJarUrlBtn" />
             </HBox>
             <HBox>

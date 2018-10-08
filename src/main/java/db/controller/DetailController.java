@@ -51,7 +51,7 @@ public class DetailController {
             root = FXMLLoader.load(getClass().getResource("/fxml/generator.fxml"));
             Stage primaryStage = new Stage();
             primaryStage.setTitle("Mybatis Generator");
-            primaryStage.setScene(new Scene(root, 500, 480));
+            primaryStage.setScene(new Scene(root, 600, 480));
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/bird.png")));
             primaryStage.show();
             Stage stage = (Stage)cancel.getScene().getWindow();
