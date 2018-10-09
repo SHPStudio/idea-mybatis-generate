@@ -100,7 +100,7 @@ public class GeneratorController {
             Parent anotherRoot = FXMLLoader.load(getClass().getResource("/fxml/detail.fxml"));
             Stage anotherStage = new Stage();
             anotherStage.setTitle("Mybatis Generator");
-            anotherStage.setScene(new Scene(anotherRoot, 600, 480));
+            anotherStage.setScene(new Scene(anotherRoot, 800, 480));
             anotherStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/bird.png")));
             anotherStage.show();
             Stage stage = (Stage)jdbcSelector.getScene().getWindow();
