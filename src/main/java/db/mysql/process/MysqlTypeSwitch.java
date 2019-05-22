@@ -11,6 +11,12 @@ public class MysqlTypeSwitch implements TypeSwitch {
         switch (typeName) {
             case "VARCHAR":
                 return "String";
+            case "ENUM":
+                return "String";
+            case "BLOB":
+                return "byte[]";
+            case "JSON":
+                return "String";
             case "CHAR":
                 return "String";
             case "TEXT":
@@ -57,6 +63,12 @@ public class MysqlTypeSwitch implements TypeSwitch {
         typeName = typeName.replaceAll(" UNSIGNED", "").toUpperCase();
         switch (typeName) {
             case "VARCHAR":
+                return "no";
+            case "ENUM":
+                return "no";
+            case "BLOB":
+                return "no";
+            case "JSON":
                 return "no";
             case "CHAR":
                 return "no";

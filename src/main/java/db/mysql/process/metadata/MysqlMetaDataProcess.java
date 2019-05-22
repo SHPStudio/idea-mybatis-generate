@@ -47,7 +47,7 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
         try {
             if (tables==null) {
                 tables = new ArrayList<>();
-                ResultSet rs = databaseMetaData.getTables(null, RuntimeEnv.pp.getSchema(), null, new String[]{"TABLE"});
+                ResultSet rs = databaseMetaData.getTables(RuntimeEnv.pp.getSchema(), RuntimeEnv.pp.getSchema(), null, new String[]{"TABLE"});
                 while (rs.next()) {
                     tables.add(rs.getString("TABLE_NAME"));
                 }
@@ -70,11 +70,11 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
 
             Set<String> keySet = new HashSet<>();
             ResultSet rs;
-            rs =databaseMetaData.getPrimaryKeys(null,RuntimeEnv.pp.getSchema(),tableName);
+            rs =databaseMetaData.getPrimaryKeys(RuntimeEnv.pp.getSchema(),RuntimeEnv.pp.getSchema(),tableName);
             while (rs.next()){
                 keySet.add(rs.getString("COLUMN_NAME"));
             }
-            rs = databaseMetaData.getColumns(null, RuntimeEnv.pp.getSchema(), tableName, "%");
+            rs = databaseMetaData.getColumns(RuntimeEnv.pp.getSchema(), RuntimeEnv.pp.getSchema(), tableName, "%");
             while (rs.next()){
                 MySqlData mySqlData =new MySqlData();
                 mySqlData.setColumnName(rs.getString("COLUMN_NAME"));
@@ -102,7 +102,7 @@ public class MysqlMetaDataProcess implements DataBaseMetaDataProcess{
 
     private void getIndexInfo(String tableName) {
         try {
-            ResultSet rs3 = databaseMetaData.getIndexInfo(null, null, tableName, false, true);
+            ResultSet rs3 = databaseMetaData.getIndexInfo(RuntimeEnv.pp.getSchema(), RuntimeEnv.pp.getSchema(), tableName, false, true);
             while (rs3.next()) {
                 System.out.println("数据库名: "+ rs3.getString(1));
                 System.out.println("表模式: "+ rs3.getString(2));
