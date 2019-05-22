@@ -15,6 +15,10 @@ public class MysqlTypeSwitch implements TypeSwitch {
                 return "String";
             case "BLOB":
                 return "byte[]";
+            case "BINARY":
+                return "byte[]";
+            case "VARBINARY":
+                return "byte[]";
             case "JSON":
                 return "String";
             case "CHAR":
@@ -67,6 +71,10 @@ public class MysqlTypeSwitch implements TypeSwitch {
             case "ENUM":
                 return "no";
             case "BLOB":
+                return "no";
+            case "BINARY":
+                return "no";
+            case "VARBINARY":
                 return "no";
             case "JSON":
                 return "no";
