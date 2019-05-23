@@ -1,8 +1,6 @@
 package db.mysql.model;
 
-import db.mysql.process.MysqlTypeSwitch;
-import db.mysql.process.PostgreTypeSwitch;
-import db.mysql.process.TypeSwitch;
+import db.mysql.process.DataTypeSwitch;
 import db.mysql.process.metadata.DataBaseMetaDataProcess;
 import db.mysql.process.metadata.MysqlMetaDataProcess;
 import db.mysql.process.metadata.PostgresMetaDataProcess;
@@ -15,13 +13,13 @@ import db.mysql.process.metadata.PostgresMetaDataProcess;
  * 不同数据库的适配枚举
  */
 public enum DataBaseTypeEnum {
-    Mysql("mysql","com.mysql.jdbc.Driver",new  MysqlMetaDataProcess(),"`",new MysqlTypeSwitch()),
+    Mysql("mysql","com.mysql.jdbc.Driver",new  MysqlMetaDataProcess(),"`",new DataTypeSwitch("mysql")),
     Oracle("oracle","oracle.jdbc.driver.OracleDriver",null,"`",null),
-    Postgres("postgres","org.postgresql.Driver",new PostgresMetaDataProcess(),"\"", new PostgreTypeSwitch())
+    Postgres("postgres","org.postgresql.Driver",new PostgresMetaDataProcess(),"\"", new DataTypeSwitch("postgre"))
     ;
 
 
-    DataBaseTypeEnum(String dataBaseTypeName, String driver, DataBaseMetaDataProcess metaDataProcess, String sense,TypeSwitch typeSwitch) {
+    DataBaseTypeEnum(String dataBaseTypeName, String driver, DataBaseMetaDataProcess metaDataProcess, String sense,DataTypeSwitch typeSwitch) {
         this.dataBaseTypeName = dataBaseTypeName;
         this.driver = driver;
         this.metaDataProcess = metaDataProcess;
@@ -48,7 +46,7 @@ public enum DataBaseTypeEnum {
     /**
      * 数据库类型与java类型适配器
      */
-    private TypeSwitch typeSwitch;
+    private DataTypeSwitch typeSwitch;
 
     public DataBaseMetaDataProcess getMetaDataProcess() {
         return metaDataProcess;
@@ -62,11 +60,11 @@ public enum DataBaseTypeEnum {
         this.sense = sense;
     }
 
-    public TypeSwitch getTypeSwitch() {
+    public DataTypeSwitch getTypeSwitch() {
         return typeSwitch;
     }
 
-    public void setTypeSwitch(TypeSwitch typeSwitch) {
+    public void setTypeSwitch(DataTypeSwitch typeSwitch) {
         this.typeSwitch = typeSwitch;
     }
 
