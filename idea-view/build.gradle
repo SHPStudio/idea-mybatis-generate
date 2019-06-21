@@ -7,7 +7,7 @@ apply from: "${rootProject.projectDir}/build.gradle"
 intellij {
     version '2018.1.1'
     updateSinceUntilBuild false
-    pluginName 'idea-mybatis-generator'
+    pluginName 'idea-mybatis-generator-test'
 }
 patchPluginXml {
 

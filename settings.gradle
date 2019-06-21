@@ -1,4 +1,4 @@
-rootProject.name = 'idea-mybatis'
+rootProject.name = 'idea-mybatis-test'
 include 'core'
 include 'idea-view'
 

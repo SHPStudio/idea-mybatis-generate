@@ -1,0 +1,1 @@
+    int delete${className}(${className}.UpdateBuilder object);

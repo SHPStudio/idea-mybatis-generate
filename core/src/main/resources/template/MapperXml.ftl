@@ -9,4 +9,6 @@
 
     <#include "base/selectXML.ftl">
 
+    <#include "base/mysql/deleteXML.ftl">
+
 </mapper>

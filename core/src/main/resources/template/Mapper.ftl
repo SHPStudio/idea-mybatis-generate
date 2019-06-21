@@ -14,4 +14,5 @@ public interface ${mapperName}BaseMapper {
 
     <#include "base/selectMapper.ftl">
 
+    <#include "base/deleteMapper.ftl">
 }

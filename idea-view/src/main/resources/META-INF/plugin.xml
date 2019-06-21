@@ -36,7 +36,7 @@
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="MVPSupportPlugin.MVPSupportAction"
                     class="com.jlh.mybatis.view.MVPSupportAction"
-                    text="mybatis-generator" description="mybatis-generator">
+                    text="mybatis-generator-test" description="mybatis-generator-test">
             </action>
         </group>
     </actions>
